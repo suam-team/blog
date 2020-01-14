@@ -13,10 +13,10 @@
     
     <item>
       <title>Create a Blog Post with Hugo</title>
-      <link>https://suam-team.github.io/blog/posts/hello-world/</link>
+      <link>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</link>
       <pubDate>Tue, 14 Jan 2020 01:15:59 +0700</pubDate>
       
-      <guid>https://suam-team.github.io/blog/posts/hello-world/</guid>
+      <guid>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</guid>
       <description>In this post, I will present you a short introduction on how to create a blog post, from the the installation of Hugo to publishing your article.
 SUAM Project For the SUAM project, there are two main repositories responsible for content publishing, suam-team/raw for static content and Hugo config, and suam-team/blog which contains public/ directory for HTML. We have deploy.sh for executing and pushing content from a markdown file to a HTML file.</description>
     </item>
