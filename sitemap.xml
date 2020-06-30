@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</loc>
-    <lastmod>2020-01-14T01:15:59+07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://suam-team.github.io/blog/posts/</loc>
-    <lastmod>2020-01-14T01:15:59+07:00</lastmod>
+    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam-team.github.io/blog/</loc>
+    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/</loc>
+    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</loc>
     <lastmod>2020-01-14T01:15:59+07:00</lastmod>
   </url>
   

