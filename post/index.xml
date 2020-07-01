@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>SUAM</title>
-    <link>https://suam.wtf/</link>
-    <description>Recent content on SUAM</description>
+    <title>Posts on SUAM</title>
+    <link>https://suam.wtf/post/</link>
+    <description>Recent content in Posts on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 18:49:10 +0700</lastBuildDate>
     
-	<atom:link href="https://suam.wtf/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://suam.wtf/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -45,17 +45,6 @@ $client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;qu
       <guid>https://suam.wtf/post/create-a-blog-post-with-hugo/</guid>
       <description>In this post, I will present you a short introduction on how to create a blog post, from the the installation of Hugo to publishing your article.
 SUAM Project For the SUAM project, there are two main repositories responsible for content publishing, suam-team/raw for static content and Hugo config, and suam-team/blog which contains public/ directory for HTML. We have deploy.sh for executing and pushing content from a markdown file to a HTML file.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://suam.wtf/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://suam.wtf/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
- https://github.</description>
     </item>
     
   </channel>

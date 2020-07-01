@@ -3,27 +3,64 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://suam.wtf/posts/</loc>
-    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
+    <loc>https://suam.wtf/post/pdpa-myth/</loc>
+    <lastmod>2020-07-01T18:49:10+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/post/</loc>
+    <lastmod>2020-07-01T18:49:10+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/bongtrop/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/post/wtf-do-you-want-windows-defender/</loc>
+    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/p/</loc>
+    <lastmod>2020-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/post/create-a-blog-post-with-hugo/</loc>
+    <lastmod>2020-01-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam.wtf/</loc>
-    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://suam.wtf/posts/wtf-do-you-want-windows-defender/</loc>
-    <lastmod>2020-06-30T23:16:18+07:00</lastmod>
+    <loc>https://suam.wtf/about/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://suam.wtf/posts/create-a-blog-post-with-hugo/</loc>
-    <lastmod>2020-01-14T01:15:59+07:00</lastmod>
+    <loc>https://suam.wtf/authors/ruthlezs/</loc>
   </url>
   
   <url>
     <loc>https://suam.wtf/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/tags/index/</loc>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/series/</loc>
   </url>
   
   <url>
