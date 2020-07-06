@@ -6,10 +6,19 @@
     <description>Recent content in Authors on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://suam.wtf/authors/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title></title>
+      <link>https://suam.wtf/authors/p/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/authors/p/</guid>
+      <description>Defensive security engineer. Writer at Pandora.sh</description>
+    </item>
     
     <item>
       <title></title>
@@ -27,15 +36,6 @@
       
       <guid>https://suam.wtf/authors/bongtrop/</guid>
       <description>Husker at STH, OSCE, Pentest+</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://suam.wtf/authors/p/</link>
-      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://suam.wtf/authors/p/</guid>
-      <description>Defensive security engineer. Writer at Pandora.sh</description>
     </item>
     
   </channel>

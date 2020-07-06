@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Red Team Engagement: Phishing Techniques</title>
+      <link>https://suam.wtf/post/red-team-engagement-phishing-techniques/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/post/red-team-engagement-phishing-techniques/</guid>
+      <description>โพสต์นี้เป็นอีกโพสต์หนึ่งซึ่งผมจะใช้มันเป็นโน้ตสั้น ๆ สำหรับทดสิ่งที่ได้รู้มาเผื่อซักวันนึงเราจะได้ใช้มันและก็หวังว่าคนอื่นจะได้รับประโยชน์เช่นกัน สำหรับเนื้อหาที่เราจะเลือกทดกันในวันนี้มาจาก SANS@MIC Webcast ในหัวข้อ Catch and release: phishing techniques for the good guys โดย Jan Kopřiva ครับ
+ ดาวโหลดสไลด์ประกอบการบรรยายหรือดู Webcast เต็มย้อนหลังได้ที่ SANS Webcast
+  คีย์เวิร์ดสำคัญในการทำ content ของ phishing operation ให้มีโอกาสสำเร็จสูงคือการเล่นกับคนผ่านปัจจัยซึ่งทำให้การวิเคราะห์และตัดสินใจด้วยเหตุและผลถูกบั่นทอนลง ปัจจัยเหล่านั้นมีได้หลากหลาย แต่ในการบรรยายนี้จะเน้นไปที่ปัจจัยอยู่ 3 ลักษณะคือ Known, Trustoworthy และ Urgent ทั้ง 3 ปัจจัยนี้หากใช้อย่างถูกต้องก็จะสามารถช่วยเพิ่มอัตราความสำเร็จได้เป็นอย่างดี ขั้นตอนการ Recon ยังคงเป็นขั้นตอนที่สำคัญเพื่อให้รู้ Defensive mechanism ที่เป้าหมายมี อาทิ ผู้ให้บริการอีเมลของเป้าหมายน่าจะมีความสามารถในการตรวจจับและป้องกันอีเมลปลอมได้ดีแค่ไหน หรือในฝั่งของเป้าหมายเองมีการตั้งค่า SPF/DKIM/DMARC ไว้อย่างไรเพื่อป้องการโจมตีในลักษณะนี้ เทคโนโลยีอย่าง SPF/DKIM/DMARC เป็นเทคโนโลยีซึ่งบางครั้งการเอามาใช้ให้ถูกต้องก็เป็นเรื่องที่ยาก ดังนั้นการนำผลลัพธ์จากการ Recon มาดูอาจช่วยให้เราพบอะไรที่น่าสนใจ และนำไปสู่การ bypass การป้องกันได้ ตัวอย่าง #56742 SPF whitelist of mandrill leads to email forgery เทคนิคการเล่นกับชื่อผู้ส่ง  ปลอมทั้งหมดผ่าน SMTP server ของเราเองแต่อาจเจอปัญหาในการตรวจสอบย้อนกลับ หรือปัญหาเกี่ยวกับ reputation ของ SMTP server ใช้ทริคปลอมอีเมลแอดเดรส เช่น ระบุ Sender address ให้มี First Last &amp;lt;fake@emai-address.</description>
+    </item>
+    
+    <item>
       <title>5 Thailand&#39;s PDPA Myths</title>
       <link>https://suam.wtf/post/pdpa-myth/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
