@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://suam.wtf/authors/p/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+    <loc>https://suam.wtf/</loc>
+    <lastmod>2020-07-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/eegeeg/</loc>
+    <lastmod>2020-07-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam.wtf/authors/</loc>
-    <lastmod>2020-07-06T00:00:00+00:00</lastmod>
+    <lastmod>2020-07-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam.wtf/post/</loc>
+    <lastmod>2020-07-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/post/the-story-of-gg-is-this-the-pentest/</loc>
+    <lastmod>2020-07-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/p/</loc>
     <lastmod>2020-07-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -48,17 +63,8 @@
   </url>
   
   <url>
-    <loc>https://suam.wtf/</loc>
-    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://suam.wtf/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://suam.wtf/authors/eegeeg/</loc>
   </url>
   
   <url>
