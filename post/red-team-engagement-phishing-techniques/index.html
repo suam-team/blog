@@ -54,7 +54,7 @@
 <meta itemprop="description" content="สรุปเทคนิค Phishing สำหรับการทำ Red Team Engagement">
 <meta itemprop="datePublished" content="2020-07-06T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-07-06T00:00:00+00:00" />
-<meta itemprop="wordCount" content="154">
+<meta itemprop="wordCount" content="255">
 
 
 
@@ -96,8 +96,8 @@
                     <div class="col-lg-8">
                         <div class="meta text-muted mb-3">
                             <p class="created text-muted text-uppercase font-weight-bold mb-1">July 6, 2020</p>
-                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>154 words</span>
-                            <span><i class="fas fa-clock mr-2"></i>1 min read</span>
+                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>255 words</span>
+                            <span><i class="fas fa-clock mr-2"></i>2 mins read</span>
                         </div>
 
                         <h1>Red Team Engagement: Phishing Techniques</h1>
@@ -151,6 +151,21 @@
 <li>ใช้เทคนิค Zerofont หรือการแทรกตัวอักษรขนาดเล็กระหว่างคำที่มักจะถูกตรวจจับโดยระบบ</li>
 </ul>
 </li>
+</ul>
+<p>อัปเดตเทคนิคเพิ่มเติมจากประสบการณ์การทำ Phishing simulation</p>
+<ul>
+<li>พิจารณาการใช้บริการอย่าง Mailchip หรือ Sendgrid ในการช่วยส่งอีเมลเนื่องจาก reputation ที่ดีกว่า</li>
+<li>ตั้งค่า <code>Return-Path</code> ให้ตรงกับอีเมลเป้าหมายเพื่อกำหนดปลายทางหากเกิดกรณี email bouncing</li>
+<li>พิจารณาการตั้งค่าหรือเปลี่ยน A record ใน DNS หรือตั้ง TTL ให้ต่ำหลังจากมีการส่งอีเมลออกไปแล้ว เนื่องบริการอีเมลบางบริการจะมีการตรวจสอบอีเมลหลังจากที่มีการส่งออกไปและจะพบปัญหาในการตรวจสอบ ซึ่งอาจช่วยให้สามารถข้ามผ่านกระบวนการตรวจสอบได้</li>
+<li>หากเป็นไปได้ควรหลีกเลี่ยงลักษณะของเนื้อหาที่สามารถถูกตรวจสอบได้ด้วยวิธีการ pattern matching เช่น HTML หรือ text ทั่วไป และควรระมัดระวังเป็นอย่างยิ่งหากมีการใช้ payload ที่เป็นนิยม เช่น ไฟล์เอกสารแนบมาโครสคริปต์</li>
+<li>หากต้องมีการใส่ไฟล์แนบ วิธีการปลอดภัยที่สุดคือการอัปโหลดไฟล์แนบดังกล่าวไปยังบริการฝากไฟล์ที่มีความน่าเชื่อถือสูง หรือในระบบที่เราสามารถควบคุมได้ เพื่อลดความเสี่ยงในการที่จะถูกดึงไฟล์แนบออกไปตรวจสอบ</li>
+<li>ทำการปรับเปลี่ยนคำใน payload เพื่อป้องกันการทำ pattern matching ตัวอย่างเช่น หาก payload มีการใช้คำว่า <code>powershell.exe</code> เราอาจสามารถใช้สคริปต์อย่าง <a href="https://github.com/danielbohannon/Invoke-Obfuscation">Invoke-Obfuscation</a> มาช่วยในการปกปิด ให้ได้ผลลัพธ์ที่ไม่สามารถตรวจจับได้ทันที เช่น <code>&quot;po&quot; &amp; &quot;w&quot; &amp; &quot;er&quot; &amp; &quot;s&quot; &amp; &quot;he&quot; &amp; &quot;l&quot; &amp; &quot;l&quot; &amp; &quot;.e&quot; &amp; &quot;x&quot; &amp; &quot;e&quot; &amp; &quot; &quot;</code></li>
+<li>ต้องตรวจสอบการเข้าถึงหน้าเว็บไซต์ปลอมเสมอ และใช้วิธีการ เช่น <code>&lt;meta&gt;</code> ในการเปลี่ยนเส้นทางความพยายามเข้าถึงที่ไม่ถูกต้องออก</li>
+</ul>
+<p>แหล่งข้อมูลเพิ่มเติม:</p>
+<ul>
+<li><a href="https://blog.sublimesecurity.com/red-team-techniques-gaining-access-on-an-external-engagement-through-spear-phishing/">Red Team Techniques: Gaining access on an external engagement through spear-phishing</a></li>
+<li><a href="https://www.avanan.com/blog/metamorph-html-obfuscation-phishing-attack">MetaMorph HTML Obfuscation Phishing Attack</a></li>
 </ul>
 
                         </div>
