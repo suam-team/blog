@@ -6,17 +6,13 @@
     <description>Recent content on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://suam.wtf/authors/eegeeg/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/authors/eegeeg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>เรื่องเล่าของ 👉👩👈 | นี่มัน Pentest หรอคะ!?</title>
-      <link>https://suam.wtf/post/the-story-of-gg-is-this-the-pentest/</link>
+      <link>https://suam.wtf/posts/the-story-of-gg-is-this-the-pentest/</link>
       <pubDate>Wed, 22 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://suam.wtf/post/the-story-of-gg-is-this-the-pentest/</guid>
+      <guid>https://suam.wtf/posts/the-story-of-gg-is-this-the-pentest/</guid>
       <description>สวัสดีค่ะทุกคนนนน 😘 อันที่จริงน้องตั้งใจจะมีสาระในบล็อกแรก แต่ความเป็นจริงก็ไม่ค่อยได้อย่างที่คิด และก็ไม่ใช่เรื่องที่มีสาระเท่าไหร่ แต่ถึงจะเป็นอย่างนั้น มันกลับเป็นเรื่องที่จำเป็นต้องพูดถึงอย่างมากเมื่อมันเป็นเรื่องความปลอดภัยและการประเมินความปลอดภัยของแอปพลิเคชันและเว็บ
 เมื่อพูดถึงการประเมินว่าแอปพลิเคชันหรือเว็บปลอดภัยแค่ไหน เรามักจะนึกถึงคำว่า vulnerability assessement (VA) หรือการทำ pentest ใช่ไหมคะ ทั้งสองอย่างนี้เป็นสิ่งที่คล้ายกันแต่ก็ให้ผลลัพธ์ต่างกัน เพียงแต่ว่าสิ่งที่เรามักจะเห็นในวงการนี้คือการนำการประเมิน 2 แบบนี้มาใช้แทนกัน เช่น การขาย pentest แต่ดันทำเป็น VA ไปขาย! 😲 ซึ่งสร้างความเข้าใจผิดๆ ให้ลูกค้าว่าระบบนั้นไม่ปลอดภัยเพราะเจอช่องโหว่เยอะมากกกกก หรือปลอดภัยเพราะผล VA ไม่เจออะไรเลย (แต่ให้ที่อื่น pentest ต่อมันก็เจอนะ!?)
 ตัวอย่างนึงที่เราจะมาดูกันวันนี้คือสิ่งทีน้องเจอมาเองค่ะ เรื่องคือ บ ของน้องได้เป็น vendor เขียน website ให้กับ บ ที่หนึ่ง จากนั้้น บ นั้นได้มีการทำ internal pentest และเจอว่าเว็บในความโอบอุ้มดูแลของน้อง มีช่องโหว่ที่ร้ายแรงมากๆ อยู่ ผลถูกส่งมาใน Report ที่ได้จาก Ac _ _ _ _ ix พร้อมกับคอมเม้นให้แก้ไขด่วนๆๆ ตามรูปด้านล่างค่ะ
