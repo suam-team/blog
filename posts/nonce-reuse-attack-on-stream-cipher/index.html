@@ -115,7 +115,7 @@ Keystream = PRNG(Seed)
 <pre><code>Plaintext = Keystream ^ Ciphertext
 </code></pre>
 <p>ลองดูรูปด้านล่างเผื่อจะเข้าใจมากขึ้น</p>
-<!-- raw HTML omitted -->
+<p><img src="https://ggez.cc/img/stream_cipher.png" alt="Symmetric Key Cipher"></p>
 <p>ตัวอย่างยอดฮิตในอดีตก็จะเป็น <a href="https://en.wikipedia.org/wiki/RC4">RC4</a> ที่แตกพ่ายไปแล้ว และก็จะเป็น Stream cipher ที่เอา Block cipher มาสร้าง Keystream เช่น AES-CTR หรือ <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">AES-GCM</a> (บางคนจะมองเป็น Block cipher แต่ผมมองเป็น Stream cipher) และยอดฮิตล่าสุดก็จะเป็น ChaCha20 หรือ <a href="https://en.wikipedia.org/wiki/Salsa20">Salsa20</a></p>
 <h2 id="known-plaintext-attack-on-stream-cipher">Known-plaintext Attack on Stream Cipher</h2>
 <p>ก่อนที่จะอ่านต่อไป ผมอยากให้ทุกคนลองคิดวิธีโจมตี ถ้าเกิดว่าเรารู้ทั้ง <code>Plaintext</code> และ <code>Ciphertext</code> เราจะสามารถตบ Stream cipher ยังไงดี ให้เวลา 3.14159265359 วินาที</p>
@@ -177,13 +177,13 @@ Plaintext = Keystream ^ Ciphertext = &quot;I Hate you&quot;
 <h2 id="การเขารหสแบบ-aes-ctr">การเข้ารหัสแบบ AES-CTR</h2>
 <p>ตอนแรกว่าจะเริ่มที่ RC4 เลย แต่พอคิดไปคิดมาแล้ว มันเป็นการเข้ารหัสที่ Broken และไม่มีใครใช้งานแล้วในปัจจุบัน ผมจะข้าม ๆ ไปนะครับ</p>
 <p>โดยการเข้ารหัสแบบ AES-CTR จะเป็นการนำ AES ที่เป็น Block cipher มาใช้สร้าง <code>Keystream</code> แทนที่จะใช้ <code>PRNG</code> ครับ การทำงานแบบง่าย ๆ คือ มันจะใช้ AES มาทำการเข้ารหัส Nonce รวมกับ Counter โดย Counter จะเป็นเลขเรียงกันที่เพิ่มขึ้นเรื่อย ๆ เราก็จะได้ <code>Keystream</code> มา จากนั้นก็เหมือนกับ Stream cipher อื่น ๆ แล้ว</p>
-<!-- raw HTML omitted -->
+<p><img src="https://i.imgur.com/8wxNpNg.png" alt=""></p>
 <h2 id="ทดลองแฮกกนเลย">ทดลองแฮกกันเลย</h2>
 <p>หลังจากลองจินตนาการการตบ Stream cipher กันไปแล้ว มาลองตบจาก Lab จริงกันครับโดย Lab นี้จะต้องใช้การโจมตีทั้งสองแบบเลยครับ ฃองไปทำกันดู <strong><a href="https://lab.suam.wtf/lab/suam-team/ctr-static-nonce-lab">CTR Static Nonce Lab</a></strong></p>
 <h2 id="ชองโหวของแถมของ-ctr-mode">ช่องโหว่ของแถมของ CTR Mode</h2>
 <p>ในการสร้าง <code>Keystream</code> ของ CTR จะเป็นการที่บวกเลขขึ้นไปเรื่อย ๆ ใช่ไหมครับ ลองคิดดูเล่น ๆ นะครับ ถ้ามีวันหนึ่ง Counter มันถูกเพิ่มขึ้นไปจนเกินกว่า ที่จะเข้ารหัสได้ด้วย AES จะเป็นยังไง ก็จะเป็นอีก Lab หนึ่งที่ทำไว้ ให้ลองตบเล่น ๆ ครับ <strong><a href="https://lab.suam.wtf/lab/suam-team/ctr-broken-couter-lab">CTR Broken Couter Lab</a></strong></p>
 <p>ขอใบ้ด้วยรูป เดียวจะไม่มีคนทำ ลองหาวิธีดูครับ</p>
-<!-- raw HTML omitted -->
+<p><img src="https://ggez.cc/img/broken_counter.png" alt=""></p>
 <h2 id="การบานกอนจะไป-part-2">การบ้านก่อนจะไป Part 2</h2>
 <p>ตอนแรกผมคุยกับเพื่อน P (@pe3zx) ว่าจะทำ Research เกี่ยวกับ ChaCha20 และ Poly1305 แต่ว่า หลังจาก Research เสร็จ แล้วจะเอามาเขียนกลัวจะไม่มีใครอ่าน เลยทำเป็น Part ปูความรู้พื้นฐานไปก่อน และทำ Lab ต่าง ๆ เผื่อใครไม่เข้าใจจะได้ไปลองเล่นเองได้</p>
 <blockquote>
