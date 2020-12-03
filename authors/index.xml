@@ -6,10 +6,19 @@
     <description>Recent content in Authors on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 03 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Dec 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://suam.wtf/authors/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title></title>
+      <link>https://suam.wtf/authors/bongtrop/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/authors/bongtrop/</guid>
+      <description>Husker at STH, OSCE, Pentest+</description>
+    </item>
     
     <item>
       <title></title>
@@ -36,15 +45,6 @@
       
       <guid>https://suam.wtf/authors/ruthlezs/</guid>
       <description>OSCP, PCIP, CEH, Project+</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://suam.wtf/authors/bongtrop/</link>
-      <pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://suam.wtf/authors/bongtrop/</guid>
-      <description>Husker at STH, OSCE, Pentest+</description>
     </item>
     
   </channel>

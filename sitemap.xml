@@ -4,21 +4,31 @@
   
   <url>
     <loc>https://suam.wtf/</loc>
-    <lastmod>2020-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://suam.wtf/authors/p/</loc>
-    <lastmod>2020-08-03T00:00:00+00:00</lastmod>
+    <loc>https://suam.wtf/authors/bongtrop/</loc>
+    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam.wtf/authors/</loc>
-    <lastmod>2020-08-03T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/post/nonce-reuse-attack-on-stream-cipher/</loc>
+    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://suam.wtf/post/</loc>
+    <lastmod>2020-12-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/p/</loc>
     <lastmod>2020-08-03T00:00:00+00:00</lastmod>
   </url>
   
@@ -50,11 +60,6 @@
   <url>
     <loc>https://suam.wtf/post/pdpa-myth/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://suam.wtf/authors/bongtrop/</loc>
-    <lastmod>2020-06-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
