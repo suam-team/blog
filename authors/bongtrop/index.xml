@@ -6,7 +6,11 @@
     <description>Recent content on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 03 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/authors/bongtrop/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Dec 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://suam.wtf/authors/bongtrop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 1</title>
       <link>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher/</link>
