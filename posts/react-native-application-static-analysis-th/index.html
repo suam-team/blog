@@ -54,7 +54,7 @@
 <meta itemprop="description" content="วิธีการแกะการทำงานของ Application ที่ถูกพัฒนามาจาก React Native">
 <meta itemprop="datePublished" content="2021-01-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-01-12T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1297">
+<meta itemprop="wordCount" content="1301">
 
 
 
@@ -126,7 +126,7 @@ drwxrwxr-x 7 bongtrop bongtrop   4096 Jan 12 19:04 ..
 (hack) bongtrop@bongtrop-pc:assets/ $ cat index.android.bundle
 var __BUNDLE_START_TIME__=this.nativePerformanceNow?na[...]
 </code></pre>
-<p><strong>(3)</strong> เมื่อลองเปิดไฟล์ดังกล่าวจะเห็นว่าถูกทำ minify มาทำให้อ่านยาก โดยปกติผมจะทำการ beautify มันก่อนอ่านครับ ผมใช้ tool ชื่อ <code>js-beautify</code> สามารถติดตั้งง่าย ๆ ด้วยคำสั่ง <code>npm install -g js-beautify</code> รันคำสั่งต่อไปนี้เพื่อ beautify ไฟล์ <code>index.android.bundle</code> ครับ</p>
+<p><strong>(3)</strong> เมื่อลองเปิดไฟล์ดังกล่าวจะเห็นว่าเป็น JavaScript soruce code ถูกทำ minify มาทำให้อ่านยาก โดยปกติผมจะทำการ beautify มันก่อนอ่านครับ ผมใช้ tool ชื่อ <code>js-beautify</code> สามารถติดตั้งง่าย ๆ ด้วยคำสั่ง <code>npm install -g js-beautify</code> รันคำสั่งต่อไปนี้เพื่อ beautify ไฟล์ <code>index.android.bundle</code> ครับ</p>
 <pre><code>bongtrop@bongtrop-pc:assets/ $ js-beautify -r index.android.bundle 
 beautified index.android.bundle
 </code></pre>
@@ -157,7 +157,7 @@ bongtrop@bongtrop-pc:ReactNativeReverseingLab/ $ mv ReactNativeReverseingLab.pat
 bongtrop@bongtrop-pc:ReactNativeReverseingLab/ $ cd ..
 </code></pre>
 <p><strong>(7)</strong> ทำการ sign APK ใหม่อีกครั้ง</p>
-<p>สำหรับใครไม่มี key ให้สร้างขึ้นมาก่อนนะครับ command นี้ได้เลย</p>
+<p>สำหรับใครไม่มี key ให้สร้างขึ้นมาก่อนนะครับ คำสั่งนี้ได้เลย</p>
 <pre><code>keytool -genkey -v -keystore helloworld.keystore -alias helloworld -keyalg RSA -keysize 2048 -validity 10000
 </code></pre>
 <p>ถ้ามีแล้วจะใช้ <code>apksigner</code> หรือ <code>jarsigner</code> sign APK ได้เลยนะครับ ตัวอย่างผมจะใช้ jarsigner ครับ</p>
@@ -168,7 +168,7 @@ Enter Passphrase for keystore:
    adding: META-INF/HELLOWOR.RSA
 [...]
 </code></pre>
-<p><strong>(8)</strong> ทำการติดตั้งแอปด้วย APK ใหม่ (อย่าลืมลบอันเก่า) และทำการกด + จะสามารถกดไปเรื่อย ๆ จน alert <code>You win!!</code> โชขึ้นมาดังรูปครับ</p>
+<p><strong>(8)</strong> ทำการติดตั้งแอปด้วย APK ใหม่ (อย่าลืมลบอันเก่า) และทำการกด + จะสามารถกดไปเรื่อย ๆ จน alert <code>You win!!</code> โชว์ขึ้นมาดังรูปครับ</p>
 <p><img src="https://i.imgur.com/9XQCpKnl.png" alt="React Native 2"></p>
 <p>สรุปคือถ้าเป็นแบบเดิมจะเป็น JavaScript source code ที่ถูก minify แล้ว เราสามารถเข้าไปอ่าน หรือแก้ไขได้เหมือนกับเขียน JavaScript ทั่วไปเลยครับ จะเห็นว่าไม่ยากเลย ไม่จำเป็นต้องใช้ tool อะไรมาก เห็นไหมครับว่าชีวิต pentester ง่ายมาก ๆ เมื่อเจอ React Native เราสามารถยัด JavaScript Debuging Tool เข้าไปใน source code และ Debug ตัวแอปได้เหมือนเขียนเว็บก็ยังได้</p>
 <h2 id="react-native-แบบ-hermes">React Native แบบ Hermes</h2>
@@ -181,7 +181,7 @@ Enter Passphrase for keystore:
 index.android.bundle: Hermes JavaScript bytecode, version 74
 </code></pre>
 <p>สำหรับใครที่อยากลองทำตามไปด้วยสามารถไปเล่นได้ที่ <a href="https://lab.suam.wtf">lab.suam.wtf</a> ที่ข้อ <a href="https://lab.suam.wtf/lab/suam-team/hermes-reversing-lab">Hermes Reversing Lab</a> ครับ</p>
-<p>ถ้าลองตรวจสอบไฟล์ดูจะพบว่ามันอ่านไม่ออกครับ ถ้าเป็น .NET หรือ Java bytecode ทุกคนก็จะสามารถไปหา Decompiler มา decompile ได้แล้วใช่ไหมครับ แต่สำหรับของใหม่อย่าง Hermes อย่าได้หวังครับ สิ่งที่เราสามารถทำได้คือใช้คำสั่ง <code>hbcdump</code> ที่ทาง Hermes Engine มีให้นะครับ สามารถโหลดได้จาก Github ของทาง <a href="https://github.com/facebook/hermes/releases">Hermes</a> เลยครับ แต่ที่ต้องระวังคือแต่ละ release ของ Hermes จะรองรับ Hermes bytecode ใน version ที่ต่างกัน จะต้องไปดู Hermes bytecode version ที่ไฟล์ <code>/include/hermes/BCGen/HBC/BytecodeFileFormat.h</code> อยู่ที่ประมาณบรรทัดที่ 33 ครับ สำหรับ Lab นี้เป็น Version 74 ครับจะต้องใช้ <a href="https://github.com/facebook/hermes/releases/tag/v0.6.0">Hermes Release v0.6.0</a> โหลดมาละใช้ได้เลยครับ จะอยู่ที่ไฟล์ <code>hbcdump</code> เลย การใช้งานก็ง่าย ๆ เลยครับ</p>
+<p>ถ้าลองตรวจสอบไฟล์ดูจะพบว่ามันอ่านไม่ออกครับ ถ้าเป็น .NET หรือ Java bytecode ทุกคนก็จะสามารถไปหา decompiler มา decompile ได้แล้วใช่ไหมครับ แต่สำหรับของใหม่อย่าง Hermes อย่าได้หวังครับ สิ่งที่เราสามารถทำได้คือใช้คำสั่ง <code>hbcdump</code> ที่ทาง Hermes Engine มีให้นะครับ สามารถโหลดได้จาก Github ของทาง <a href="https://github.com/facebook/hermes/releases">Hermes</a> เลยครับ แต่ที่ต้องระวังคือแต่ละ release ของ Hermes จะรองรับ Hermes bytecode ใน version ที่ต่างกัน จะต้องไปดู Hermes bytecode version ที่ไฟล์ <code>/include/hermes/BCGen/HBC/BytecodeFileFormat.h</code> อยู่ที่ประมาณบรรทัดที่ 33 ครับ สำหรับ lab นี้เป็น version 74 ครับจะต้องใช้ <a href="https://github.com/facebook/hermes/releases/tag/v0.6.0">Hermes Release v0.6.0</a> โหลดมาละใช้ได้เลยครับ จะอยู่ที่ไฟล์ <code>hbcdump</code> เลย การใช้งานก็ง่าย ๆ เลยครับ</p>
 <pre><code>$ ./hbcdump -objdump-disassemble index.android.bundle
 hbcdump&gt; dis
 
@@ -197,7 +197,7 @@ hbcdump&gt; quit
 </code></pre>
 <p>จากนั้นถ้าจะแก้อะไรก็ใช้ Hexeditor ไปแก้ในส่วนที่ต้องการแก้ครับ จะเห็นว่าที่ Address 0x0002ca48 จะเหมือนกับ objdump เลย ก็แก้ไปทีละ Byte</p>
 <p><img src="https://i.imgur.com/7pWByDtl.png" alt="React Native 3"></p>
-<p>จะเห็นว่ามันทำยาก ถึงจะมี Tool ของทาง Hermes มาให้ใช้ แต่ก็ไม่ได้แสดงข้อมูลที่ครบและดูง่าย การ Patch ก็ต้องมาทำที่ Raw byte จาก Hexeditor อยู่ดี เหนื่อยสินะครับ ได้เวลาขายของ ผมและเพื่อน ๆ ที่เจอปัญหาการทำ Reverse Engineering กับ Hermes bytecode ได้ทำ Tool ชื่อ <a href="https://github.com/bongtrop/hbctool">hbctool</a> ขึ้นมาช่วยในการ Analyze และ Patch Hermes bytecode ครับ อารมจะคล้าย ๆ กับ smali ของ dalvik (แต่กากกว่าเยอะ) สามารถติดตั้งได้ง่าย ๆ</p>
+<p>จะเห็นว่ามันทำยาก ถึงจะมี tool ของทาง Hermes มาให้ใช้ แต่ก็ไม่ได้แสดงข้อมูลที่ครบและดูง่าย การ patch ก็ต้องมาทำที่ Raw byte จาก hex editor อยู่ดี เหนื่อยสินะครับ ได้เวลาขายของ ผมและเพื่อน ๆ ที่เจอปัญหาการทำ reverse engineering กับ Hermes bytecode ได้ทำ tool ชื่อ <a href="https://github.com/bongtrop/hbctool">hbctool</a> ขึ้นมาช่วยในการ analyze และ patch Hermes bytecode ครับ อารมจะคล้าย ๆ กับ smali ของ Dalvik (แต่กากกว่าเยอะ) สามารถติดตั้งได้ง่าย ๆ</p>
 <pre><code>pip install hbctool
 </code></pre>
 <p>มาลองไปทีละ Step กันเลยครับ เหมือนเดิมครับ เมื่อติดตั้งแอปแล้ว หลังจากกดปุ่ม + ไปได้ 10 รอบตัวแอปจะแสดงข้อความ <code>Increase button has already been broken.</code> และไม่สามารถเพิ่ม <code>counter</code> ได้แล้ว ดังรูป</p>
@@ -212,19 +212,19 @@ Archive:  HermesReversingLab.apk
   inflating: HermesReversingLab/META-INF/MANIFEST.MF
 [...]
 </code></pre>
-<p><strong>(2)</strong> จากนั้นทำการ disasm Hermes bytecode ไฟล์ โดยใช้ <code>hbctool</code> ครับ</p>
+<p><strong>(2)</strong> จากนั้นทำการ disassemble Hermes bytecode ไฟล์ โดยใช้ <code>hbctool</code> ครับ</p>
 <pre><code>(hack) bongtrop@bongtrop-pc:lab/ $ hbctool disasm HermesReversingLab/assets/index.android.bundle HermesReversingLabHASM
 [*] Disassemble 'HermesReversingLab/assets/index.android.bundle' to 'HermesReversingLabHASM' path
 [*] Hermes Bytecode [ Source Hash: d0310a88a868dfb1ee21d12e9011725b1f716875, HBC Version: 74 ]
 [*] Done
 </code></pre>
-<p><strong>(2)</strong> หลังจากที่ disassemble ออกมาเป็น HASM (ผมตั้งชื่อขึ้นมาเองครับ ย่อมาจาก Hermes Assembly) โดยภายใน <code>HermesReversingLabHASM</code> จะมีอยู่ 3 ไฟล์ดังนี้ครับ</p>
+<p><strong>(3)</strong> หลังจากที่ disassemble ออกมาเป็น HASM (ผมตั้งชื่อขึ้นมาเองครับ ย่อมาจาก Hermes Assembly) โดยภายใน <code>HermesReversingLabHASM</code> จะมีอยู่ 3 ไฟล์ดังนี้ครับ</p>
 <ul>
 <li><code>metadata.json</code>: จะใช้เก็บข้อมูลสำคัญต่าง ๆ ของไฟล์ Hermes bytecode ที่ถูก disassemble มาครับ</li>
 <li><code>instruction.hasm</code>: จะเป็นไฟล์ที่ใช้เก็บ function ต่าง ๆ ที่ถูก disassemble แล้ว เป็น format ที่ผมสร้างขึ้นมาเองครับ ใครมีแนวคิดต่าง ๆ สามารถเสนอได้ครับ สามารถ แก้ instruction ต่าง ๆ ของแอป ได้ที่ไฟล์นี้</li>
 <li><code>string.json</code>: จะเป็น String ต่าง ๆ ที่ถูกใช้ในแอป เหมือนกันสามารถแก้ไข String ต่าง ๆ ได้ที่ไฟล์นี้ครับ</li>
 </ul>
-<p><strong>(2)</strong> ทำการแก้ไข Instruction ของแอปผ่านไฟล์ <code>instruction.hasm</code> เลยครับ โดยผมได้ทำการแก้ไข ค่าที่ counter จะต้องเพิ่มไปถึงจาก 1336 ให้เป็น 1 แทนครับ จะได้ไม่ติด condition ที่จะเพิ่ม <code>counter</code> ได้ไม่เกิน 10 ครับ มีหลาย ๆ วิธีนะครับ อาจจะแก้ไข opcode จาก <code>JNotGreaterEqual</code> เป็น jmp แบบอื่น หรือเปลี่ยน Addr ที่จะ <code>jmp</code> ไปเป็น alert flag เลยก็ได้ครับ โดยครั้งนี้ผมจะใช้วิธีแรกครับ คือแก้เลข 1336 ที่ บรรทัด 182890 ในไฟล์ <code>instruction.hasm</code> ให้เป็น 1 ครับ</p>
+<p><strong>(4)</strong> ทำการแก้ไข instruction ของแอปผ่านไฟล์ <code>instruction.hasm</code> เลยครับ โดยผมได้ทำการแก้ไข ค่าที่ counter จะต้องเพิ่มไปถึงจาก 1336 ให้เป็น 1 แทนครับ จะได้ไม่ติด condition ที่จะเพิ่ม <code>counter</code> ได้ไม่เกิน 10 ครับ มีหลาย ๆ วิธีนะครับ อาจจะแก้ไข opcode จาก <code>JNotGreaterEqual</code> เป็น <code>jmp</code> แบบอื่น หรือเปลี่ยน address ที่จะ <code>jmp</code> ไปเป็น alert flag เลยก็ได้ครับ โดยครั้งนี้ผมจะใช้วิธีแรกครับ คือแก้เลข 1336 ที่ บรรทัด 182890 ในไฟล์ <code>instruction.hasm</code> ให้เป็น 1 ครับ</p>
 <p>จาก</p>
 <pre><code>[...]
 	LoadConstInt        	Reg8:1, Imm32:1336
@@ -237,13 +237,13 @@ Archive:  HermesReversingLab.apk
 	JNotGreaterEqual    	Addr8:43, Reg8:2, Reg8:1
 [...]
 </code></pre>
-<p><strong>(3)</strong> Save ไฟล์และทำการ assemble HASM กลับไปเป็น HBC (Hermes ByteCode) ครับ โดยใช้ <code>hbctool</code> เหมือนเดิม</p>
+<p><strong>(5)</strong> save ไฟล์และทำการ assemble HASM กลับไปเป็น HBC (Hermes Bytecode) ครับ โดยใช้ <code>hbctool</code> เหมือนเดิม</p>
 <pre><code>(hack) bongtrop@bongtrop-pc:lab/ $ hbctool asm HermesReversingLabHASM HermesReversingLab/assets/index.android.bundle 
 [*] Assemble 'HermesReversingLabHASM' to 'HermesReversingLab/assets/index.android.bundle' path
 [*] Hermes Bytecode [ Source Hash: d0310a88a868dfb1ee21d12e9011725b1f716875, HBC Version: 74 ]
 [*] Done
 </code></pre>
-<p><strong>(4)</strong> ทำการลบ signature ไฟล์ เดิมทิ้งและทำการ zip แอปกลับไปเป็น APK ครับ</p>
+<p><strong>(6)</strong> ทำการลบ signature ไฟล์ เดิมทิ้งและทำการ zip แอปกลับไปเป็น APK ครับ</p>
 <pre><code>(hack) bongtrop@bongtrop-pc:lab/ $ cd HermesReversingLab         
 (hack) bongtrop@bongtrop-pc:HermesReversingLab/ $ rm META-INF/CERT.RSA
 (hack) bongtrop@bongtrop-pc:HermesReversingLab/ $ rm META-INF/CERT.SF       
@@ -256,7 +256,7 @@ Archive:  HermesReversingLab.apk
 (hack) bongtrop@bongtrop-pc:HermesReversingLab/ $ mv HermesReversingLab.patch.apk ..
 (hack) bongtrop@bongtrop-pc:HermesReversingLab/ $ cd ..
 </code></pre>
-<p><strong>(4)</strong> Sign ด้วยวิธีเดิมครับ</p>
+<p><strong>(7)</strong> sign ด้วยวิธีเดิมครับ</p>
 <pre><code>(hack) bongtrop@bongtrop-pc:lab/ $ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore helloworld.keystore HermesReversingLab.patch.apk helloworld
 Enter Passphrase for keystore:                                                
    adding: META-INF/MANIFEST.MF
