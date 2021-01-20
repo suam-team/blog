@@ -64,13 +64,14 @@
 <meta property="article:modified_time" content="2021-01-12T00:00:00+00:00" />
 <meta itemprop="name" content="React Native Application Static Analysis [Thai]">
 <meta itemprop="description" content="วิธีการแกะการทำงานของ Application ที่ถูกพัฒนามาจาก React Native">
-<meta itemprop="datePublished" content="2021-01-12T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2021-01-12T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1295">
+<meta itemprop="datePublished" content="2021-01-12T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-01-12T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1306">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="React Native Application Static Analysis [Thai]"/>
 <meta name="twitter:description" content="วิธีการแกะการทำงานของ Application ที่ถูกพัฒนามาจาก React Native"/>
 
@@ -107,7 +108,7 @@
                     <div class="col-lg-8">
                         <div class="meta text-muted mb-3">
                             <p class="created text-muted text-uppercase font-weight-bold mb-1">January 12, 2021</p>
-                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1295 words</span>
+                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1306 words</span>
                             <span><i class="fas fa-clock mr-2"></i>7 mins read</span>
                         </div>
 
@@ -131,6 +132,9 @@
                     <div class="col-lg-8">
                         <div class="content">
                             <p><img src="https://i.imgur.com/cCqu6la.png" alt="banner"></p>
+<blockquote>
+<p>For english version, please navigate to <a href="https://suam.wtf/posts/react-native-application-static-analysis-en/">https://suam.wtf/posts/react-native-application-static-analysis-en/</a>.</p>
+</blockquote>
 <p>ในปี 2020 ที่ผ่านมา ผมทำงาน pentest เจอแอปที่ถูกพัฒนาด้วย cross-platform framework ต่าง ๆ เยอะขึ้นมาก เช่น <a href="https://dotnet.microsoft.com/apps/xamarin">Xamarin</a>, <a href="https://reactnative.dev/">React Native</a>, หรือ <a href="https://flutter.dev/">Flutter</a> และผมคิดว่าในปีหลัง ๆ ก็น่าจะเจอบ่อยขึ้นไปอีก อีกทั้งในการทำ reverse engineering หรือการทำ static analysis ของแอปใน framework ต่าง ๆ ก็จะมีวิธีการที่ไม่เหมือนกันเลย ยิ่งเป็น framework ที่ถูกสร้างขึ้นใหม่จะไม่มี material หรือ tool ที่ช่วยในการทำ analysis อยู่เลย ทำให้การทำ static analysis ทำได้ยากมาก รวมไปถึงการ bypass logic หรือ protection ต่าง ๆ ที่ต้องทำการ patch แอป ก็จะแทบเป็นไปไม่ได้เลยถ้าไม่เข้าใจ Internal ของ framework นั้น ๆ</p>
 <p>เมื่อก่อน React Native เป็น framework ที่เจอบ่อยมาก และทำ reverse engineering ง่ายกว่าเพื่อน แต่ว่าทาง Facebook ได้เริ่มสร้าง JavaScript Engine ของตัวเองชื่อ <a href="https://hermesengine.dev/">Hermes</a> ขึ้นมา และเริ่มที่จะนำมาใช้กับ React Native แล้ว ตอนนี้ถูก bundle มาพร้อมใน starter kit ต่าง ๆ แล้ว (แต่ยังไม่ได้ enable เป็น default) ทำให้ developer ที่ต้องการความเร็วแอปเริ่มหันมา enable กันละ โดย React Native แบบเดิมจะทำการฝัง JavaScript source code ที่ถูก minify แล้วมา ทำให้สามารถ beautify และก็อ่านได้เลย ez แต่แบบใหม่ที่ใช้ Hermes ตอน build JavaScript source code จะถูก compile เป็น Hermes bytecode ก่อนและนำมายัดลงแอป</p>
 <p>ก็นั้นแหละครับ Factor ความ <strong>ชิบหาย</strong> ครบ ทั้งเป็น VM และมาใหม่ material และ tool ไม่มี ต้องไปอ่าน <a href="https://github.com/facebook/hermes">Hermes Engine</a> source code ใน Github เพื่อจะได้รู้ว่าจะต้องอ่านอะไร อ่านตรงไหน และควรจะ patch ยังไง จริง ๆ แล้ว AOT snapshot ของ Flutter ก็ไม่ต่างกันมาก  และ Xamarin ก็เปลี่ยนวิธีใหม่เอา DLL ยัดเข้าไปใน Native Lib พวกนี้ก็ยังไม่ค่อยมีคนมาแกะซักเท่าไหร่ วันนี้เลยจะมาแชร์วิธีการทำ static analysis สำหรับ React Native แอปครับ</p>
@@ -299,14 +303,14 @@ Enter Passphrase for keystore:
    adding: META-INF/HELLOWOR.RSA
 [...]
 </code></pre>
-<p><strong>(5)</strong> เมื่อทำการติดตั้งและเปิดแอปก็กด + สองครั้งก็จะได้ flag แล้วครับโดยตัวอย่างการทำทั้งหมด ผมใส่ไว้เป็นไฟล์ gif ใน <a href="https://github.com/bongtrop/hbctool">hbctool</a> แล้วครับ (ตัวอย่างใน gif จะไม่ได้ทำการ bundle และ unbundle manual นะครับ แต่การ patch จะเหมือนกัน)</p>
+<p><strong>(8)</strong> เมื่อทำการติดตั้งและเปิดแอปก็กด + สองครั้งก็จะได้ flag แล้วครับโดยตัวอย่างการทำทั้งหมด ผมใส่ไว้เป็นไฟล์ gif ใน <a href="https://github.com/bongtrop/hbctool">hbctool</a> แล้วครับ (ตัวอย่างใน gif จะไม่ได้ทำการ bundle และ unbundle manual นะครับ แต่การ patch จะเหมือนกัน)</p>
 <p><img src="https://i.imgur.com/70MBQ2c.gif" alt="hbctool example"></p>
 <p>หรือใครอยากดูแบบชัด ๆ ดูเป็น <a href="https://github.com/bongtrop/hbctool/raw/main/image/hbctool_example.mp4">MP4</a> ได้ครับ</p>
 <blockquote>
 <p>ผมทำ lab ขึ้นมาเพื่ออยากให้คนที่อ่านสามารถทำตามแต่ละขั้นตอนได้ และเห็นภาพครับ ถ้าใครได้ flag แล้วสามารถ ไป submit ได้ที่ <a href="https://lab.suam.wtf/">lab.suam.wtf</a> ครับ</p>
 </blockquote>
 <h2 id="สรปนะครบ">สรุปนะครับ</h2>
-<p>ผมทำบทความนี้เพื่ออยากให้ มีคนเก่ง ๆ มาสนใจการทำ in-depth analysis ตัว framework ต่าง ๆ และส่งต่อให้ community เพิ่มมากขึ้นครับ เพราะเดี๋ยวนี้ tech มันไปไวมาก จนผมไม่สามารถจะ research ตามได้ทัน ไม่ทันจริง ๆ ยิ่งตอนยังเป็น pentester เรื่องแบบนี้ต้องทำนอกเวลางานเท่านั้นเลยครับ พูดง่าย ๆ คือ หาเพื่อนมาช่วย research นั่นแหละ</p>
+<p>ผมทำบทความนี้เพื่ออยากให้ มีคนเก่ง ๆ มาสนใจการทำ in-depth analysis ตัว framework ต่าง ๆ และส่งต่อให้ community เพิ่มมากขึ้นครับ เพราะเดี๋ยวนี้ tech มันไปไวมาก จนผมไม่สามารถจะ research ตามได้ทัน ไม่ทันจริง ๆ ยิ่งตอนยังเป็น pentester เรื่องแบบนี้ต้องทำนอกเวลางานเท่านั้นเลยครับ พูดง่าย ๆ คือช่วย pentester ตาดำ ๆ แบบผม ให้ใช้ชีวิตได้อย่างราบลื่นด้วย ด้วยการแบ่งปัญความรู้ด้วยเถอะครับ T^T</p>
 <p>อย่างไรก็ตาม ผมหวังว่า tool ที่ผมเขียนและบทความนี้จะเป็นประโยชน์กับ pentester ทุกคนที่ต้องเจอกับเรื่องร้าย ๆ ที่นับวันการทดสอบระบบยิ่งยากขึ้นนะครับ</p>
 <p>สรุปเรื่อง technique บ้างละกัน Hermes ก็เป็นอะไรที่จะต้องจับตามองนะครับ เพราะว่าการ enable มันแทบจะไม่มีผลเสียเลย แอปก็ไวขึ้นอย่างเห็นได้ชัด อีกทั้งยังเปิดง่ายด้วยนะ และในอนาคตผมมองว่าถ้า Hermes stable แล้ว React Native แอปทุกแอปน่าจะถูกบังคับเปลี่ยนไปใช้ Hermes ครับ และในอนาคตของอนาคตอีก Facebook น่าจะขยับไปเน้น JIT และ AOT มากขึ้น เหมือนกับที่ Flutter ทำ สำหรับ pentester <strong>ความชิบหาย * 100</strong> แน่นอนครับ</p>
 
