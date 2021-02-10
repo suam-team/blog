@@ -203,7 +203,7 @@
 <p>Galois Field หรืออีกชื่อคือ Finite Field จะเป็น Set ของตัวเลขที่สามารถนำมา บวก, ลบ, คูณ, และหาร กับเพื่อนใน Set ได้ โดยผลลัพธ์จะต้องเป็นอีกตัวใน Set นั้น</p>
 <p>งง แน่ ๆ ครับ งั้นกลับไปเรื่อง Abstract Algebra นิดหนึ่ง ใน Abstract Algebra จะมี Structure ยอดฮิตอยู่ 3 ตัว ที่ทุกคนน่าจะรู้จักกันคือ Group, Ring และ Field โดยจะมีลักษณะดังนี้</p>
 <p>ต่อไปนี้จะเป็นการพูดให้เข้าใจง่าย ๆ คือจะใช้ บวก ลบ คูณ และ หาร ที่ทุกคนชินกันอยู่แล้วมายกตัวอย่างนะครับ จริง ๆ แล้วจะเป็น Operation อะไรก็ได้ที่มีคุณสมบัติครบ ถ้าใครอยากอ่าน Definition จริง ๆ อ่านได้ที่ <a href="http://www-users.math.umn.edu/~brubaker/docs/152/152groups.pdf">Link</a> นี้</p>
-<p><strong>(1)</strong> Group จะเป็น Set ที่มี Operation ที่มีคุณสมบัติ Identity, Inverse, Associativity คุณสมบัติมันจะเหมือนกันการ $+$ ที่เรารู้จักกัน และสมาชิกใน Set 2 ตัวมาบวกกันและจะต้องได้ผลลัพธ์เป็นสมาชิกอีกตัว</p>
+<p><strong>(1) Group</strong> จะเป็น Set ที่มี Operation ที่มีคุณสมบัติ Identity, Inverse, Associativity คุณสมบัติมันจะเหมือนกันการ $+$ ที่เรารู้จักกัน และสมาชิกใน Set 2 ตัวมาบวกกันและจะต้องได้ผลลัพธ์เป็นสมาชิกอีกตัว</p>
 <p>ผมจะยกตัวอย่าง Group เป็น Integers หรือจำนวนเต็ม ($\mathbb{Z}$) นะครับ โดย Group $\mathbb{Z}$ จะมี Operation เป็น $+$ โดยจะมีคุณสมบัติดังนี้</p>
 <ul>
 <li><strong>Identity</strong> คือค่าที่สมาชิกใน Group $+$ แล้ว จะได้ตัวเดิม สำหรับ $\mathbb{Z}$ คือ $0$
@@ -213,7 +213,7 @@ $$x+(-x)=0$$</li>
 <li><strong>Associativity</strong> พูดง่าย ๆ คือการจัดหมู่หรือย้ายวงเล็บ
 $$x+(y+z)=(x+y)+z$$</li>
 </ul>
-<p><strong>(2)</strong> Ring จะเป็น Set ที่มี Operation 2 ตัว คือตัวแรกจะมีคุณสมบัติเหมือนกับ Group Operation คือมี Identity, Inverse, Associativity ส่วนอีกตัวจะมีคุณสมบัติ Associativity และ Distributive มันจะเหมือนกับการคุณที่เรารู้จักกัน</p>
+<p><strong>(2) Ring</strong> จะเป็น Set ที่มี Operation 2 ตัว คือตัวแรกจะมีคุณสมบัติเหมือนกับ Group Operation คือมี Identity, Inverse, Associativity ส่วนอีกตัวจะมีคุณสมบัติ Associativity และ Distributive มันจะเหมือนกับการคุณที่เรารู้จักกัน</p>
 <p>สำหรับ Operation ตัวแรก $+$ พูดไปแล้วใน Group ส่วน Operation ตัวที่สองคือ $\times$ จะมีคุณสมบัติดังนี้</p>
 <ul>
 <li><strong>Associativity</strong> พูดง่าย ๆ คือการจัดหมู่หรือย้ายวงเล็บ เหมือนกับ $+$ เลยครับ
@@ -221,7 +221,7 @@ $$x \times (y \times z)=(x \times y) \times z$$</li>
 <li><strong>Distributive</strong> พูดง่าย ๆ คือการกระจายเข้าไปในวงเล็บคือ
 $$x \times (y + z) = (x \times y) + (x \times z)$$</li>
 </ul>
-<p><strong>(3)</strong> Field เหมือน Ring เลยแต่เพิ่มเติมคือ Operation ที่สองจะมี Identity และ Inverse ทำให้เราสามารถหารได้ โดย $\mathbb{Z}$ จะมาใช้ยกตัวอย่างไม่ได้แล้วเพราะว่า $\mathbb{Z}$ ไม่สามารถหา Inverse ของ $\times$ ที่อยู่ใน Set ได้ เช่น</p>
+<p><strong>(3) Field</strong> เหมือน Ring เลยแต่เพิ่มเติมคือ Operation ที่สองจะมี Identity และ Inverse ทำให้เราสามารถหารได้ โดย $\mathbb{Z}$ จะมาใช้ยกตัวอย่างไม่ได้แล้วเพราะว่า $\mathbb{Z}$ ไม่สามารถหา Inverse ของ $\times$ ที่อยู่ใน Set ได้ เช่น</p>
 <p>$$2^{-1}=0.5$$</p>
 <p>จากที่ $0.5$ ไม่ได้อยู่ใน Set ของ $\mathbb{Z}$ ดังนั้น $\mathbb{Z}$ จึงเป็น Field ไม่ได้ ดังนั้นผมจะยกตัวอย่างเป็น Rational Number หรือจำนวนตรรกยะ ($\mathbb{Q}$) สำหรับ $\mathbb{Q}$ สมาชิกใน Set จะสามารถเขียนในรูปแบบของ $\mathbb{Z}$ สองตัวเป็นเศษส่วนกันได้ เช่น $\dfrac{1}{2}$</p>
 <ul>
