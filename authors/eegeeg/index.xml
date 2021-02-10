@@ -6,7 +6,11 @@
     <description>Recent content on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/authors/eegeeg/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Jul 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://suam.wtf/authors/eegeeg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>เรื่องเล่าของ 👉👩👈 | นี่มัน Pentest หรอคะ!?</title>
       <link>https://suam.wtf/posts/the-story-of-gg-is-this-the-pentest/</link>

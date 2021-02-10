@@ -6,7 +6,11 @@
     <description>Recent content on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 11 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/authors/p/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://suam.wtf/authors/p/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>DEFSEC101: MALWARE TRAFFIC ANALYSIS</title>
       <link>https://suam.wtf/posts/defsec101-malware-traffic-analysis/</link>

