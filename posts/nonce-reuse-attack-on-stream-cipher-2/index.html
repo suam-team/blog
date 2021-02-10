@@ -38,7 +38,7 @@
 <meta itemprop="description" content="ความเสี่ยงและวิธีการแฮก Stream Cipher ในชิวิตประจำวัน Part 2">
 <meta itemprop="datePublished" content="2021-02-10T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-10T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1187">
+<meta itemprop="wordCount" content="1353">
 
 
 
@@ -84,8 +84,8 @@
                     <div class="col-lg-8">
                         <div class="meta text-muted mb-3">
                             <p class="created text-muted text-uppercase font-weight-bold mb-1">February 10, 2021</p>
-                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1187 words</span>
-                            <span><i class="fas fa-clock mr-2"></i>6 mins read</span>
+                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1353 words</span>
+                            <span><i class="fas fa-clock mr-2"></i>7 mins read</span>
                         </div>
 
                         <h1>Crypto: เรื่อง Nonce ๆ ของ Stream Cipher Part 2</h1>
@@ -202,16 +202,41 @@
 <h4 id="galois-field">Galois Field</h4>
 <p>Galois Field หรืออีกชื่อคือ Finite Field จะเป็น Set ของตัวเลขที่สามารถนำมา บวก, ลบ, คูณ, และหาร กับเพื่อนใน Set ได้ โดยผลลัพธ์จะต้องเป็นอีกตัวใน Set นั้น</p>
 <p>งง แน่ ๆ ครับ งั้นกลับไปเรื่อง Abstract Algebra นิดหนึ่ง ใน Abstract Algebra จะมี Structure ยอดฮิตอยู่ 3 ตัว ที่ทุกคนน่าจะรู้จักกันคือ Group, Ring และ Field โดยจะมีลักษณะดังนี้</p>
+<p>ต่อไปนี้จะเป็นการพูดให้เข้าใจง่าย ๆ คือจะใช้ บวก ลบ คูณ และ หาร ที่ทุกคนชินกันอยู่แล้วมายกตัวอย่างนะครับ จริง ๆ แล้วจะเป็น Operation อะไรก็ได้ที่มีคุณสมบัติครบ ถ้าใครอยากอ่าน Definition จริง ๆ อ่านได้ที่ <a href="http://www-users.math.umn.edu/~brubaker/docs/152/152groups.pdf">Link</a> นี้</p>
+<p><strong>(1)</strong> Group จะเป็น Set ที่มี Operation ที่มีคุณสมบัติ Identity, Inverse, Associativity คุณสมบัติมันจะเหมือนกันการ $+$ ที่เรารู้จักกัน และสมาชิกใน Set 2 ตัวมาบวกกันและจะต้องได้ผลลัพธ์เป็นสมาชิกอีกตัว</p>
+<p>ผมจะยกตัวอย่าง Group เป็น Integers หรือจำนวนเต็ม ($\mathbb{Z}$) นะครับ โดย Group $\mathbb{Z}$ จะมี Operation เป็น $+$ โดยจะมีคุณสมบัติดังนี้</p>
 <ul>
-<li>Group จะเป็น Set ที่สมาชิกข้างในสามารถ บวก และ ลบ และได้ผลลัพธ์มาเป็นสมาชิกอีกตัวถายใน Set</li>
-<li>Ring เหมือน Group แต่เพิ่ม คูณ ไปด้วย</li>
-<li>Field เหมือน Ring แต่เพิ่ม หาร ไปด้วย</li>
+<li><strong>Identity</strong> คือค่าที่สมาชิกใน Group $+$ แล้ว จะได้ตัวเดิม สำหรับ $\mathbb{Z}$ คือ $0$
+$$x+0=x$$</li>
+<li><strong>Inverse</strong> คือเมื่อนำสมาชิกตัวใดตัวหนึ่งมา $+$ กับ Inverse ของมันจะได้ค่าเป็น Identity โดยที่ Inverse ของ + จะใช้เป็นเครื่องหมาย $-$
+$$x+(-x)=0$$</li>
+<li><strong>Associativity</strong> พูดง่าย ๆ คือการจัดหมู่หรือย้ายวงเล็บ
+$$x+(y+z)=(x+y)+z$$</li>
 </ul>
-<p>ลองมาดูตัวอย่างที่น่าจะเห็นภาพกันครับ เริ่มกันที่ทุกคนน่าจะรู้จักกันดีเลยคือ Rational Number หรือจำนวนตรรกยะ ($\mathbb{Q}$) สมาชิกใน Set จะสามารถเขียนในรูปแบบของ $a/b$ ได้ จะเห็นว่าเราจะมี +, -, *, และ / แน่นอน</p>
-<p>อีกตัวอย่างหนึ่งที่คนมักจะเข้าใจผิดกันว่าเป็น Field คือ Integers หรือตัวเลขจำนวนเต็ม ($\mathbb{Z}$) หลายคนจะมองว่ามันมี +, -, *, และ / ครบ เช่น เราเอา 1 และ 2 ที่เป็นจำนวนเต็มมาหารกันก็จะได้ 0.5 แสดงว่ามันก็หารได้ อันนี้ผิดครับเพราะว่า 0.5 ไม่ได้อยู่ใน $\mathbb{Z}$ ดังนั้น $\mathbb{Z}$ ไม่มีหาร มันเลยเป็น Ring</p>
-<p>ต่อไปมารู้จักกับตัวหลักของเราคือ Galois Field ($GF$) เนี่ยจะเป็นกลุ่มของตัวเลขจำนวนเต็มที่มีขนาดจำกัดเช่น $GF(5)$ ก็จะมีสมาชิกแค่ 5 ตัวคือ 0, 1, 2, 3, และ 4 ครับ แล้วมันมี +, -, *, และ / ได้ยังไงในเมื่อ $3+4=7$ ก็ไม่อยู่ใน Set แล้ว คำตอบคือจะเป็นการนำ Modulus เข้ามาใช้ครับ เช่น $3+4 \equiv 2 \pmod{5}$ ทำให้บวก, ลบ หรือ คุณ กันยังไงก็ไม่เป็นปัญหา</p>
-<p>ส่วนหารใน $GF$ จะพิเศษหน่อยคือ การที่เราจะหารใน Modulus ได้เราจะต้องมี Inverse ก่อน และการที่เราจะ Inverse ทุกตัวใน Set ได้ ตัวที่เรา $mod$ จะต้องเป็น Prime เท่านั้นทำให้ $GF$ จะต้องมีขนาดเป็น Prime เช่น $GF(2)$ หรือ $GF(13)$ เป็นต้น ถึงจะมีหารได้ โดย $GF$ ที่มีขนาดเป็น Prime จะเรียกกันว่า Prime Field ครับ</p>
-<p>ใน $GF$ ก็จะมีอีกแบบหนี่ง และเป็นอันที่ใช้ทำ GMAC ของ GCM ชื่อว่า Extended Field โดย Field นี้ขนาดของ $GF$ จะอยู่ในรูปของ $p^m$ หรือ Prime ยกกำลังด้วยค่าอะไรก็ได้ เช่นใน GCM จะใช้ $GF(2^{128})$ โดย Extended Field จะเป็นการมองตัวเลขใน Set เป็น Polynomial ครับ เช่น ใน $GF(3^2)$ ก็จะเป็นดังตารางนี้</p>
+<p><strong>(2)</strong> Ring จะเป็น Set ที่มี Operation 2 ตัว คือตัวแรกจะมีคุณสมบัติเหมือนกับ Group Operation คือมี Identity, Inverse, Associativity ส่วนอีกตัวจะมีคุณสมบัติ Associativity และ Distributive มันจะเหมือนกับการคุณที่เรารู้จักกัน</p>
+<p>สำหรับ Operation ตัวแรก $+$ พูดไปแล้วใน Group ส่วน Operation ตัวที่สองคือ $\times$ จะมีคุณสมบัติดังนี้</p>
+<ul>
+<li><strong>Associativity</strong> พูดง่าย ๆ คือการจัดหมู่หรือย้ายวงเล็บ เหมือนกับ $+$ เลยครับ
+$$x \times (y \times z)=(x \times y) \times z$$</li>
+<li><strong>Distributive</strong> พูดง่าย ๆ คือการกระจายเข้าไปในวงเล็บคือ
+$$x \times (y + z) = (x \times y) + (x \times z)$$</li>
+</ul>
+<p><strong>(3)</strong> Field เหมือน Ring เลยแต่เพิ่มเติมคือ Operation ที่สองจะมี Identity และ Inverse ทำให้เราสามารถหารได้ โดย $\mathbb{Z}$ จะมาใช้ยกตัวอย่างไม่ได้แล้วเพราะว่า $\mathbb{Z}$ ไม่สามารถหา Inverse ของ $\times$ ที่อยู่ใน Set ได้ เช่น</p>
+<p>$$2^{-1}=0.5$$</p>
+<p>จากที่ $0.5$ ไม่ได้อยู่ใน Set ของ $\mathbb{Z}$ ดังนั้น $\mathbb{Z}$ จึงเป็น Field ไม่ได้ ดังนั้นผมจะยกตัวอย่างเป็น Rational Number หรือจำนวนตรรกยะ ($\mathbb{Q}$) สำหรับ $\mathbb{Q}$ สมาชิกใน Set จะสามารถเขียนในรูปแบบของ $\mathbb{Z}$ สองตัวเป็นเศษส่วนกันได้ เช่น $\dfrac{1}{2}$</p>
+<ul>
+<li><strong>Indentity</strong> ของ $\times$ ก็จะเป็น $1$
+$$x \times 1=x$$</li>
+<li><strong>Inverse</strong> ของ $\times$ ก็จะใช้เป็นยกกำลัง -1 เช่น $x^{-1}$ เมื่อเอามา $\times$ กันก็จะได้ Indentity กลับมา
+$$x \times x^{-1} = x \times \dfrac{1}{x} = 1$$</li>
+</ul>
+<p>ต่อไปเรามารู้จักกับตัวหลักของเราคือ Galois Field ($GF$) จะเป็นกลุ่มของตัวเลขจำนวนเต็มที่มีขนาดจำกัดเช่น $GF(5)$ ก็จะมีสมาชิกแค่ 5 ตัวคือ {0, 1, 2, 3, 4} ครับ หลายคนคงจะสงสัยว่าแล้วมันมีคุณสมบัติครบได้ยังไง เช่น</p>
+<p>$$3+4=7$$</p>
+<p>$7$ ก็ไม่อยู่ใน Set มันจะเป็น Group ได้ยังไง คำตอบคือจะเป็นการนำ Modulus เข้ามาใช้ครับ เช่น</p>
+<p>$$3+4 \equiv 2 \pmod{5}$$</p>
+<p>ทำให้เราสามารถ $+$ ได้แล้ว ส่วน $\times$ ก็แทบจะไม่ต่างกับการ $+$ เท่าไหร่นัก</p>
+<p>ส่วน Inverse และ Identity ของ $\times$ การที่เราจะ Inverse ทุกตัวใน Set ได้ ตัวที่เป็น ตัว Modulus จะต้องเป็น Prime เท่านั้น ทำให้ $GF$ จะต้องมีขนาดเป็น Prime เช่น $GF(2)$ หรือ $GF(13)$ เป็นต้น ถึงจะมีสามารถหา Inverse ได้ โดย $GF$ ที่มีขนาดเป็น Prime จะเรียกว่า Prime Field ครับ</p>
+<p>ใน $GF$ ก็จะมีอีกแบบหนี่ง และเป็นอันที่ใช้ทำ GMAC ของ GCM ชื่อว่า Extended Field โดย Field นี้ขนาดของ $GF$ จะอยู่ในรูปของ $p^m$ หรือ Prime ยกกำลังดัวจำนวนนับ เช่นใน GCM จะใช้ $GF(2^{128})$ โดย Extended Field จะมองตัวเลขใน Set เป็น Polynomial ครับ เช่น ใน $GF(3^2)$ ก็จะเป็นดังตารางนี้</p>
 <table>
 <thead>
 <tr>
@@ -254,29 +279,29 @@
 </tr>
 </tbody>
 </table>
-<p>จะเห็นว่า Coefficient ของ Polynomial จะอยู่ใน $GF(3)$ และ Degree ของ Polynomial จะมีค่า 2 คือ $m$ จาก $GF(2^3)$ ในการ + และ - ก็สามารถทำได้แล้ว แค่เอา Coef ใน Degree เดียวกันมา + หรือ - กันใน $GF(3)$ เหมือนกับ Polynomial ธรรมดาเลย เช่น</p>
+<p>จะเห็นว่า Coefficient ของ Polynomial จะอยู่ใน $GF(3)$ และ Degree ของ Polynomial จะมีค่า 2 คือ $m$ จาก $GF(3^2)$ ในการ + ก็สามารถทำได้แล้ว แค่เอา Coef ใน Degree เดียวกันมา $+$ กันใน $GF(3)$ เหมือนกับ Polynomial ธรรมดาเลย เช่น</p>
 <p>$$(x + 1) + (x + 2) = (1+1)x + (1+2)$$
 $$(x + 1) + (x + 2) = 2x + 0$$
 $$(x + 1) + (x + 2) = 2x $$</p>
-<p>แต่จะมีปัญหาที่การคูณเพราะว่าในการคูณกันของ Polynomial จะทำให้ค่า Degree ของ Polynomial เพิ่มขึ้น และทำให้ผลลัพธ์ไม่ได้อยู่ใน Set เช่น</p>
+<p>แต่จะมีปัญหาที่การ $\times$ เพราะว่าในการ $\times$ กันของ Polynomial จะทำให้ค่า Degree ของ Polynomial เพิ่มขึ้น และทำให้ผลลัพธ์ไม่ได้อยู่ใน Set เช่น</p>
 <p>$$(x + 1) * (x + 2) = x^2 + x + 2x + 2$$
 $$(x + 1) * (x + 2) = x^2 + 0x + 2$$
 $$(x + 1) * (x + 2) = x^2 + 2$$</p>
-<p>$x^2 + 2$ ไม่ได้อยู่ใน $GF(2^3)$ ดังนั้นในการจะทำ Extended Field จะมีสิ่งที่ต้องการเพิ่มมาคือ Irreducible Polynomial ($P$) หรือ Polynomial ที่ไม่สามารถลดรูปได้แล้วเพื่อจะได้นำผลลัพธ์จากการคูณมา mod กับ $P$ และจะได้ค่าที่อยู่ใน Set กลับมา สำหรับการ mod ของ Polynomial ใครตั้งหารยาว Polynomial เป็นก็น่าจะ mod เป็นแล้ว ก็แค่หารแล้วเอาเศษเหลือมาเป็นผลลัพธ์ ดังนั้นผมจะไม่ขอพูดถึงนะครับ เช่น ผมกำหนดให้ $P$ ของ $GF(3^2)$ ของผมคือ $2x+1$ ถ้านำผลลัพธ์จากด้านบนมา mod ก็จะได้</p>
+<p>$x^2 + 2$ ไม่ได้อยู่ใน $GF(3^2)$ ดังนั้นในการจะทำ Extended Field จะมีสิ่งที่ต้องการเพิ่มมาคือ Irreducible Polynomial ($P$) หรือ Polynomial ที่ไม่สามารถลดรูปได้แล้วเพื่อจะได้นำผลลัพธ์จากการ $\times$ มา mod กับ $P$ และจะได้ค่าที่อยู่ใน Set กลับมา สำหรับการ mod ของ Polynomial ใครตั้งหารยาว Polynomial เป็นก็น่าจะ mod เป็นแล้ว ก็แค่หารแล้วเอาเศษเหลือมาเป็นผลลัพธ์ ดังนั้นผมจะไม่ขอพูดถึงนะครับ เช่น ผมกำหนดให้ $P$ ของ $GF(3^2)$ ของผมคือ $2x+1$ ถ้านำผลลัพธ์จากด้านบนมา mod ก็จะได้</p>
 <p>$$x^2 + 2 \equiv y \pmod{2x+1}$$</p>
 <p>$y$ มีค่าเท่าไหร่ไม่บอกหรอกไปทำเป็นการบ้านนะครับตั้งหารยาวโลด สำหรับ $P$ ของ GHASH ใน GCM คือ</p>
 <p>$$P = 1 + a + a^2 + a^7 + a^{128}$$</p>
 <p>คำถามต่อมาทำไมถึงต้องใช้ Irreducible Polynomial มา mod ไม่ mod ด้วยอะไรก็ได้หละ คำตอบคือเราต้องการหารด้วยครับ การ Inverse จำเป็นจะต้องใช้ Irreducible Polynomial ครับ สำหรับการ Inverse จะไม่พูดถึงในบทความนี้เพราะว่าไม่ค่อยจำเป็นมาก</p>
-<p>ถ้าอ่านมาถึงตรงนี้จะเข้าใจแล้วว่า $GF$ ทำงานยังไงและเราสามารถนำ $GF$ ไปใช้งานได้ยังไง GCM ก็จะใช้ $GF(2^{128})$ ที่มี Irreducible Polynomial เป็น $1 + a + a^2 + a^7 + a^{128}$ เนี่ยแหละมา + กับ * กันจนได้ค่า Authentication Tag</p>
+<p>ถ้าอ่านมาถึงตรงนี้จะเข้าใจแล้วว่า $GF$ ทำงานยังไงและเราสามารถนำ $GF$ ไปใช้งานได้ยังไง GCM ก็จะใช้ $GF(2^{128})$ ที่มี Irreducible Polynomial เป็น $1 + a + a^2 + a^7 + a^{128}$ เนี่ยแหละมา $+$ กับ $\times$ กันจนได้ค่า Authentication Tag</p>
 <p>โดย $GF$ ก็จะมีคน Implement เป็นภาษาต่าง ๆ ไว้อยู่แล้ว เราสามารถไปเลือกใช้ได้เลยครับยกตัวอย่างเช่น ของ Python (<a href="https://github.com/popcornell/pyGF2">https://github.com/popcornell/pyGF2</a>) ไปลองใช้กันดูนะครับ</p>
 <h4 id="galois-message-authentication-code-gmac">Galois Message Authentication Code (GMAC)</h4>
 <p><img src="https://i.imgur.com/kbrdkpI.png" alt="GCM in Authentication Part"></p>
 <blockquote>
 <p>ผมจะขอตัด $A$ หรือข้อมูล Authentication เสริมออกไปก่อนนะครับเพื่อความง่ายในการอธิบาย พูดง่าย ๆ คือไม่ใส่ $A$</p>
 </blockquote>
-<p>ถ้าลองไล่ตามรูปดูจะได้เป็นสมการดังต่อไปนี้เลยครับ คือเอา $GF(2^{128})$ มาบวกกับคูณกันไปเรื่อย ๆ จนได้ $T$ ครับ โดยที่ $H$ คือ $Enc_k(0^{128})$ และ $EJ$ คือ $Enc_k(J_0)$</p>
+<p>ถ้าลองไล่ตามรูปดูจะได้เป็นสมการดังต่อไปนี้เลยครับ คือเอา $GF(2^{128})$ มา $+$ กับ $\times$ กันไปเรื่อย ๆ จนได้ $T$ ครับ โดยที่ $H$ คือ $Enc_k(0^{128})$ และ $EJ$ คือ $Enc_k(J_0)$</p>
 <p>$$T = (((((C_1*H)+C_2)*H)+L)*H)+EJ$$</p>
-<p>สำหรับ Code GMAC ดูจาก <a href="https://github.com/Legrandin/pycryptodome/blob/master/lib/Crypto/Cipher/_mode_gcm.py">pycryptodome</a> ได้เลยครับเขียนไว้อ่านง่ายและมี Comment แนะนำให้ดูคู่ไปกับ Diagram</p>
+<p>สำหรับ Code GMAC ดูจาก <a href="https://github.com/Legrandin/pycryptodome/blob/master/lib/Crypto/Cipher/_mode_gcm.py">pycryptodome</a> ได้เลยครับเขียนไว้อ่านง่ายมาก และมี Comment แทบทุกบรรทัด แนะนำให้ดูคู่ไปกับ Diagram</p>
 <h2 id="the-forbidden-attack">The Forbidden Attack</h2>
 <p>จากสมาการด้านบน ถ้าเราทำการคูณ H เข้าไปในวงเล็บ ก็จะได้สมการดังนี้ครับ</p>
 <p>$$T = C_1H^3 + C_2H^2 + L*H + EJ$$</p>
