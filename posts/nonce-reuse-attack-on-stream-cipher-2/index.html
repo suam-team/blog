@@ -38,7 +38,7 @@
 <meta itemprop="description" content="ความเสี่ยงและวิธีการแฮก Stream Cipher ในชิวิตประจำวัน Part 2">
 <meta itemprop="datePublished" content="2021-02-10T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-02-10T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1353">
+<meta itemprop="wordCount" content="1431">
 
 
 
@@ -84,7 +84,7 @@
                     <div class="col-lg-8">
                         <div class="meta text-muted mb-3">
                             <p class="created text-muted text-uppercase font-weight-bold mb-1">February 10, 2021</p>
-                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1353 words</span>
+                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>1431 words</span>
                             <span><i class="fas fa-clock mr-2"></i>7 mins read</span>
                         </div>
 
@@ -200,7 +200,11 @@
 <p>ขอบอกไว้ก่อนว่าผมก็ไม่ค่อยจะแน่นเรื่องนี้ (ได้เรียนมาน้อยมากจากมหาลัยและโรงเรียน) ดังนั้นที่จะอธิบายต่อไปนี้เป็นความเข้าใจส่วนตัวอาจจะมีเข้าใจผิดบ้างนะครับ</p>
 </blockquote>
 <h4 id="galois-field">Galois Field</h4>
-<p>Galois Field หรืออีกชื่อคือ Finite Field จะเป็น Set ของตัวเลขที่สามารถนำมา บวก, ลบ, คูณ, และหาร กับเพื่อนใน Set ได้ โดยผลลัพธ์จะต้องเป็นอีกตัวใน Set นั้น</p>
+<p>Galois Field หรืออีกชื่อคือ Finite Field จะเป็น Set ของตัวเลขที่มีขนาดจำกัด และสามารถนำมา บวก, ลบ, คูณ, และหาร กับเพื่อนใน Set ได้ โดยผลลัพธ์จะต้องเป็นอีกตัวใน Set นั้น</p>
+<blockquote>
+<p>ต่อจากนี้จะเป็น Math นะครับ ใครไม่อยากเข้าใจว่ามันเป็นยังไง หรือที่มาที่ไปของมัน ก็ข้ามไป หัวข้อ <code>Galois Message Authentication Code (GMAC)</code> ได้เลยครับ แค่เข้าใจว่ามันเป็น ชุดตัวเลขแบบหนึ่ง คล้าย ๆ กับเลขจำนวนเต็ม และสามารถมาคำนวณทางคณิตศาสย์ได้พอละครับ ถ้าจะใช้ก็ใช้ Lib ของภาษาต่าง ๆ ได้เลย เช่น Python (<a href="https://github.com/popcornell/pyGF2">https://github.com/popcornell/pyGF2</a>)</p>
+</blockquote>
+<hr>
 <p>งง แน่ ๆ ครับ งั้นกลับไปเรื่อง Abstract Algebra นิดหนึ่ง ใน Abstract Algebra จะมี Structure ยอดฮิตอยู่ 3 ตัว ที่ทุกคนน่าจะรู้จักกันคือ Group, Ring และ Field โดยจะมีลักษณะดังนี้</p>
 <p>ต่อไปนี้จะเป็นการพูดให้เข้าใจง่าย ๆ คือจะใช้ บวก ลบ คูณ และ หาร ที่ทุกคนชินกันอยู่แล้วมายกตัวอย่างนะครับ จริง ๆ แล้วจะเป็น Operation อะไรก็ได้ที่มีคุณสมบัติครบ ถ้าใครอยากอ่าน Definition จริง ๆ อ่านได้ที่ <a href="http://www-users.math.umn.edu/~brubaker/docs/152/152groups.pdf">Link</a> นี้</p>
 <p><strong>(1) Group</strong> จะเป็น Set ที่มี Operation ที่มีคุณสมบัติ Identity, Inverse, Associativity คุณสมบัติมันจะเหมือนกันการ $+$ ที่เรารู้จักกัน และสมาชิกใน Set 2 ตัวมาบวกกันและจะต้องได้ผลลัพธ์เป็นสมาชิกอีกตัว</p>
@@ -223,7 +227,7 @@ $$x \times (y + z) = (x \times y) + (x \times z)$$</li>
 </ul>
 <p><strong>(3) Field</strong> เหมือน Ring เลยแต่เพิ่มเติมคือ Operation ที่สองจะมี Identity และ Inverse ทำให้เราสามารถหารได้ โดย $\mathbb{Z}$ จะมาใช้ยกตัวอย่างไม่ได้แล้วเพราะว่า $\mathbb{Z}$ ไม่สามารถหา Inverse ของ $\times$ ที่อยู่ใน Set ได้ เช่น</p>
 <p>$$2^{-1}=0.5$$</p>
-<p>จากที่ $0.5$ ไม่ได้อยู่ใน Set ของ $\mathbb{Z}$ ดังนั้น $\mathbb{Z}$ จึงเป็น Field ไม่ได้ ดังนั้นผมจะยกตัวอย่างเป็น Rational Number หรือจำนวนตรรกยะ ($\mathbb{Q}$) สำหรับ $\mathbb{Q}$ สมาชิกใน Set จะสามารถเขียนในรูปแบบของ $\mathbb{Z}$ สองตัวเป็นเศษส่วนกันได้ เช่น $\dfrac{1}{2}$</p>
+<p>จากที่ $0.5$ ไม่ได้อยู่ใน Set ของ $\mathbb{Z}$ ดังนั้น $\mathbb{Z}$ จึงเป็น Field ไม่ได้ จากนี้ผมจะยกตัวอย่างเป็น Rational Number หรือจำนวนตรรกยะ ($\mathbb{Q}$) แทนนะครับ สำหรับ $\mathbb{Q}$ สมาชิกใน Set จะสามารถเขียนในรูปแบบของ $\mathbb{Z}$ สองตัวเป็นเศษส่วนกันได้ เช่น $\dfrac{1}{2}$</p>
 <ul>
 <li><strong>Indentity</strong> ของ $\times$ ก็จะเป็น $1$
 $$x \times 1=x$$</li>
@@ -236,50 +240,65 @@ $$x \times x^{-1} = x \times \dfrac{1}{x} = 1$$</li>
 <p>$$3+4 \equiv 2 \pmod{5}$$</p>
 <p>ทำให้เราสามารถ $+$ ได้แล้ว ส่วน $\times$ ก็แทบจะไม่ต่างกับการ $+$ เท่าไหร่นัก</p>
 <p>ส่วน Inverse และ Identity ของ $\times$ การที่เราจะ Inverse ทุกตัวใน Set ได้ ตัวที่เป็น ตัว Modulus จะต้องเป็น Prime เท่านั้น ทำให้ $GF$ จะต้องมีขนาดเป็น Prime เช่น $GF(2)$ หรือ $GF(13)$ เป็นต้น ถึงจะมีสามารถหา Inverse ได้ โดย $GF$ ที่มีขนาดเป็น Prime จะเรียกว่า Prime Field ครับ</p>
-<p>ใน $GF$ ก็จะมีอีกแบบหนี่ง และเป็นอันที่ใช้ทำ GMAC ของ GCM ชื่อว่า Extended Field โดย Field นี้ขนาดของ $GF$ จะอยู่ในรูปของ $p^m$ หรือ Prime ยกกำลังดัวจำนวนนับ เช่นใน GCM จะใช้ $GF(2^{128})$ โดย Extended Field จะมองตัวเลขใน Set เป็น Polynomial ครับ เช่น ใน $GF(3^2)$ ก็จะเป็นดังตารางนี้</p>
+<p>ใน $GF$ ก็จะมีอีกแบบหนี่ง และเป็นอันที่ใช้ทำ GMAC ของ GCM ชื่อว่า Extended Field โดย Field นี้ขนาดของ $GF$ จะอยู่ในรูปของ $p^m$ หรือ Prime ยกกำลังด้วยจำนวนนับ เช่นใน GCM จะใช้ $GF(2^{128})$ โดย Extended Field จะมองตัวเลขใน Set เป็น Polynomial ครับ เช่น ใน $GF(3^2)$ ก็จะเป็นดังตารางนี้</p>
 <table>
 <thead>
 <tr>
-<th>Number</th>
-<th>Polynomial</th>
+<th>Integer rep.</th>
+<th>Vector rep.</th>
+<th>Polynomial rep.</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>0</td>
-<td>$1$</td>
+<td>[0 0]</td>
+<td>$0$</td>
 </tr>
 <tr>
 <td>1</td>
-<td>$2$</td>
+<td>[0 1]</td>
+<td>$1$</td>
 </tr>
 <tr>
 <td>2</td>
-<td>$x$</td>
+<td>[0 2]</td>
+<td>$2$</td>
 </tr>
 <tr>
 <td>3</td>
-<td>$x + 1$</td>
+<td>[1 0]</td>
+<td>$x$</td>
 </tr>
 <tr>
 <td>4</td>
-<td>$x + 2$</td>
+<td>[1 1]</td>
+<td>$x + 1$</td>
 </tr>
 <tr>
 <td>5</td>
-<td>$2x$</td>
+<td>[1 2]</td>
+<td>$x + 2$</td>
 </tr>
 <tr>
 <td>6</td>
-<td>$2x + 1$</td>
+<td>[2 0]</td>
+<td>$2x$</td>
 </tr>
 <tr>
 <td>7</td>
+<td>[2 1]</td>
+<td>$2x + 1$</td>
+</tr>
+<tr>
+<td>8</td>
+<td>[2 2]</td>
 <td>$2x + 2$</td>
 </tr>
 </tbody>
 </table>
-<p>จะเห็นว่า Coefficient ของ Polynomial จะอยู่ใน $GF(3)$ และ Degree ของ Polynomial จะมีค่า 2 คือ $m$ จาก $GF(3^2)$ ในการ + ก็สามารถทำได้แล้ว แค่เอา Coef ใน Degree เดียวกันมา $+$ กันใน $GF(3)$ เหมือนกับ Polynomial ธรรมดาเลย เช่น</p>
+<p>ในการแปลงก็ง่าย ๆ เปลี่ยนตัวเลขให้กลายเป็นเลขฐานตาม Prime ของ GF เช่น ใน $GF(3^2)$ เลข $5$ ก็แปลงเป็นฐาน 3 จะได้ $12$ จากนั้นนำไปเป็น Coefficient ของ Polynomial เลยครับ เช่น $12$ ก็จะกลายเป็น $1x+2$ เป็นต้น</p>
+<p>จะเห็นว่า Coefficient ของ Polynomial จะอยู่ใน $GF(3)$ และ Degree ของ Polynomial จะมีค่าไม่เกิน 1 หรือ $m-1$ จาก $GF(3^2)$ ในการ $+$ ก็สามารถทำได้แล้ว แค่เอา Coef ใน Degree เดียวกันมา $+$ กันใน $GF(3)$ เหมือนกับ Polynomial ธรรมดาเลย เช่น</p>
 <p>$$(x + 1) + (x + 2) = (1+1)x + (1+2)$$
 $$(x + 1) + (x + 2) = 2x + 0$$
 $$(x + 1) + (x + 2) = 2x $$</p>
@@ -294,6 +313,7 @@ $$(x + 1) * (x + 2) = x^2 + 2$$</p>
 <p>คำถามต่อมาทำไมถึงต้องใช้ Irreducible Polynomial มา mod ไม่ mod ด้วยอะไรก็ได้หละ คำตอบคือเราต้องการหารด้วยครับ การ Inverse จำเป็นจะต้องใช้ Irreducible Polynomial ครับ สำหรับการ Inverse จะไม่พูดถึงในบทความนี้เพราะว่าไม่ค่อยจำเป็นมาก</p>
 <p>ถ้าอ่านมาถึงตรงนี้จะเข้าใจแล้วว่า $GF$ ทำงานยังไงและเราสามารถนำ $GF$ ไปใช้งานได้ยังไง GCM ก็จะใช้ $GF(2^{128})$ ที่มี Irreducible Polynomial เป็น $1 + a + a^2 + a^7 + a^{128}$ เนี่ยแหละมา $+$ กับ $\times$ กันจนได้ค่า Authentication Tag</p>
 <p>โดย $GF$ ก็จะมีคน Implement เป็นภาษาต่าง ๆ ไว้อยู่แล้ว เราสามารถไปเลือกใช้ได้เลยครับยกตัวอย่างเช่น ของ Python (<a href="https://github.com/popcornell/pyGF2">https://github.com/popcornell/pyGF2</a>) ไปลองใช้กันดูนะครับ</p>
+<hr>
 <h4 id="galois-message-authentication-code-gmac">Galois Message Authentication Code (GMAC)</h4>
 <p><img src="https://i.imgur.com/kbrdkpI.png" alt="GCM in Authentication Part"></p>
 <blockquote>
