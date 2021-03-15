@@ -215,7 +215,7 @@ hbcdump&gt; quit
 </code></pre>
 <p>Then, if you want to patch it, use your favorite hex editor tool to modify the <code>index.android.bundle</code> file directly.</p>
 <p><img src="https://i.imgur.com/7pWByDtl.png" alt="React Native 3"></p>
-<p>It can be seen that it is still hard even when the Hermes team provides the <code>hbctool</code> for us. The <code>hbctool</code> doesn&rsquo;t show all the important information in the assembly. And to patch the application, editing raw bytes with a hex editor is still required.</p>
+<p>It can be seen that it is still hard even when the Hermes team provides the <code>hbcdump</code> for us. The <code>hbcdump</code> doesn&rsquo;t show all the important information in the assembly. And to patch the application, editing raw bytes with a hex editor is still required.</p>
 <p>Therefore, I created a tool named <a href="https://github.com/bongtrop/hbctool">hbctool</a> to help analyze and patch Hermes bytecode from React Native application. To install it, execute the following command.</p>
 <pre><code>pip install hbctool
 </code></pre>
