@@ -146,6 +146,16 @@ $client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;qu
     </item>
     
     <item>
+      <title>About</title>
+      <link>https://suam.wtf/about/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://suam.wtf/about/</guid>
+      <description>blog อยากเขียนไรก็เขียนของคน cool ๆ เพราะเราขายหน้าตา ไม่ได้ขายสาระ
+Author  P bongtrop eegeeg Ruthlezs Jusmistic  </description>
+    </item>
+    
+    <item>
       <title>Create a Blog Post with Hugo</title>
       <link>https://suam.wtf/posts/create-a-blog-post-with-hugo/</link>
       <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
@@ -153,17 +163,6 @@ $client = New-Object System.Net.Sockets.TCPClient(&amp;quot;192.168.1.110&amp;qu
       <guid>https://suam.wtf/posts/create-a-blog-post-with-hugo/</guid>
       <description>In this post, I will present you a short introduction on how to create a blog post, from the the installation of Hugo to publishing your article.
 SUAM Project For the SUAM project, there are two main repositories responsible for content publishing, suam-team/raw for static content and Hugo config, and suam-team/blog which contains public/ directory for HTML. We have deploy.sh for executing and pushing content from a markdown file to a HTML file.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://suam.wtf/about/</link>
-      <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://suam.wtf/about/</guid>
-      <description>Written in Go, Hugo is an open source static site generator available under the Apache Licence 2.0. Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
-Hugo makes use of a variety of open source projects including:
- https://github.</description>
     </item>
     
   </channel>
