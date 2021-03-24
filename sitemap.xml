@@ -4,7 +4,27 @@
   
   <url>
     <loc>https://suam.wtf/</loc>
-    <lastmod>2021-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/bongtrop/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/authors/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/posts/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://suam.wtf/posts/vpn-myth/</loc>
+    <lastmod>2021-03-24T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -13,23 +33,8 @@
   </url>
   
   <url>
-    <loc>https://suam.wtf/authors/</loc>
-    <lastmod>2021-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://suam.wtf/posts/linux-x86-64-socket-reuse/</loc>
     <lastmod>2021-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://suam.wtf/posts/</loc>
-    <lastmod>2021-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://suam.wtf/authors/bongtrop/</loc>
-    <lastmod>2021-02-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
